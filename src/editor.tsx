@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from "react";
-import { MonacoEditorProps } from "./types";
+import React from "react"
+type MonacoEditorProps = {
+  width?: string;
+  height?: string;
+};
+
 
 export const MonacoEditor: React.FC<MonacoEditorProps> = ({
-  width = "100%",
-  height = "100%",
+  width = "600px",
+  height = "400px",
   // value = "",
   // language = "javascript",
   // theme = null,
@@ -13,21 +17,51 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
   // editorWillMount = () => {},
   // onChange = () => {},
 }) => {
-  const editorElementRef = useRef(null);
-  const editorRef = useRef(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    
     if (typeof window === "undefined") return;
     const init = async () => {
-      editorRef.current = await startMonaco({
-        element: editorElementRef.current as HTMLDivElement,
-      });
+      await startMonaco({element: "container"});
     };
     init();
   });
-  
-  return <div ref={editorElementRef} style={{ width, height }} />;
+
+  return <div id="container" style={{ width, height }} />;
 };
+
+
+
+const startMonaco = ({
+  version = "0.21.2",
+  element = "container"
+}) => (new Function("version", "element",`
+const startMonaco = async (version, element) => {
+  const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs';
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
+
+  require.config({ paths: { 'vs': vsPath } });
+  
+  require(["vs/editor/editor.main"], function () {
+    const editor = monaco.editor.create(document.getElementById(element), {
+      value: 'function x() {console.log("Hello world!");}',
+      language: 'typescript',
+      theme: 'vs-dark'
+    });
+  });
+}
+return startMonaco(version, element)
+function loadScript(src) {
+  return new Promise(function (resolve, reject) {
+    var s;
+    s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+`))(version, element);
 
 //   editor?: monaco.editor.IStandaloneCodeEditor;
 
@@ -162,52 +196,3 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
 //       />
 //     );
 //   }
-// }
-
-function startMonaco({
-  version = "0.21.2",
-  element,
-}: {
-  version?: string;
-  element: HTMLDivElement;
-}) {
-  return new Promise((resolve, reject) => {
-    const load = async () => {
-      const vsPath = `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs`;
-
-      await loadScript(`${vsPath}/loader.min.js`);
-
-      // let require: {config} (debts: string[], fn: ()=>void)=>void ?
-      //@ts-ignore
-      this.require.config({ paths: { vs: vsPath } });
-      //@ts-ignore
-      this.require(["vs/editor/editor.main"], function () {
-        //@ts-ignore
-        const editor = monaco.editor.create(element, {
-          value: `function x() {
-  console.log("Hello world!");
-  }`,
-          language: "typescript",
-          theme: "vs-dark",
-        });
-
-        resolve(editor);
-      });
-    };
-    try {
-      load();
-    } catch (e) {
-      reject(e);
-    }
-  });
-
-  function loadScript(src) {
-    return new Promise(function (resolve, reject) {
-      const s = document.createElement("script");
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
-  }
-}

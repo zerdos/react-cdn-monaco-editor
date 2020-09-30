@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { MonacoEditor } from './MonacoEditor';
+
+
 
 function App() {
   return (
@@ -10,6 +13,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <MonacoEditor />
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -24,3 +28,4 @@ function App() {
 }
 
 export default App;
+
