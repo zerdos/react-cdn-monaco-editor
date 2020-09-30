@@ -13,8 +13,7 @@ function App() {
         value={`const foo = "bar";
 console.log(foo);
       `} />
-       
-  
+       yar
     </div>
   );
 }
