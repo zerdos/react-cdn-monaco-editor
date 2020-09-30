@@ -1,4 +1,4 @@
-import * as monacoEditor from "monaco-editor/esm/vs/editor/editor.api";
+import type * as monacoEditor from "monaco-editor";
 
 export type ChangeHandler = (
   value: string,
@@ -35,11 +35,6 @@ export interface MonacoEditorBaseProps {
   height?: string | number;
 
   /**
-   * The initial value of the auto created model in the editor.
-   */
-  defaultValue?: string;
-
-  /**
    * The initial language of the auto created model in the editor. Defaults to 'javascript'.
    */
   language?: string;
@@ -49,7 +44,7 @@ export interface MonacoEditorBaseProps {
    * The current out-of-the-box available themes are: 'vs' (default), 'vs-dark', 'hc-black'.
    * You can create custom themes via `monaco.editor.defineTheme`.
    */
-  theme?: string | null;
+  theme?: string;
 }
 
 export interface MonacoEditorProps extends MonacoEditorBaseProps {
@@ -58,7 +53,7 @@ export interface MonacoEditorProps extends MonacoEditorBaseProps {
    * If you specify `null` or `undefined` for this property, the component behaves in uncontrolled mode.
    * Otherwise, it behaves in controlled mode.
    */
-  value?: string | null;
+  value?: string;
 
   /**
    * Refer to Monaco interface {monaco.editor.IStandaloneEditorConstructionOptions}.

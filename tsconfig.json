@@ -4,7 +4,9 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "module": "esnext",
+    "lib": ["ESNext.Promise", "DOM", "ESNext"],
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
@@ -13,7 +15,7 @@
     "rootDir": "./src",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "es5"
+    "target": "ES2018"
   },
   "include": ["./src"]
 }
