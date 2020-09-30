@@ -1,9 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { MonacoEditor } from './MonacoEditor';
-
-
+import { MonacoEditor } from 'react-cdn-monaco-editor';
 
 function App() {
   return (
