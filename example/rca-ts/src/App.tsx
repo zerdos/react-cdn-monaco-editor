@@ -5,22 +5,16 @@ import { MonacoEditor } from 'react-cdn-monaco-editor';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <MonacoEditor />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MonacoEditor 
+        height="100vh" 
+        width="50%" 
+        onChange={(code)=>{console.log(code)}}
+        value={`const foo = "bar";
+console.log(foo);
+      `} />
+       
+  
     </div>
   );
 }
