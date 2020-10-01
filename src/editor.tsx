@@ -46,7 +46,7 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
     if (editorValue !== value) {
       editor?.setValue(value);
     }
-  }, [value, language, editorValue, editor, onchange]);
+  }, [value, language, onchange]);
 
   return <div id="container" style={{ width, height }} />;
 };
