@@ -15,15 +15,37 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
   language = "typescript",
   onChange = (_code) => {},
 }) => {
+  const [editor, setEditor] = React.useState<{
+    setValue: (code: string) => void;
+  } | null>(null);
+  const [editorValue, setEditorValue] = React.useState(value);
+
   React.useEffect(() => {
     if (typeof window === "undefined") return;
-    console.log("START MONACOOOO");
-    startMonaco({
-      element: "container",
-      value,
-      language,
-      onChange,
-    });
+
+    if (!editor) {
+      (async () => {
+        try {
+          const editor = await startMonaco({
+            element: "container",
+            value,
+            language,
+            onChange: (code) => {
+              setEditorValue(code);
+              onChange(code);
+            },
+          });
+          setEditor(editor);
+        } catch (e) {
+          console.log("Error attaching the editor", e);
+        }
+      })();
+      return;
+    }
+
+    if (editorValue !== value) {
+      editor?.setValue(value);
+    }
   }, [value, language]);
 
   return <div id="container" style={{ width, height }} />;
@@ -48,16 +70,20 @@ const startMonaco = async ({version, element, value, language}) => {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
 
   require.config({ paths: { 'vs': vsPath } });
+  return new Promise(function(resolve, reject){
+    require(["vs/editor/editor.main"], function () {
+      const editor = monaco.editor.create(document.getElementById("container"), {
+        value: \`${value}\`,
+        language: \`${language}\`,
+        theme: 'vs-dark'
+      });
   
-  require(["vs/editor/editor.main"], function () {
-    const editor = monaco.editor.create(document.getElementById("container"), {
-      value: \`${value}\`,
-      language: \`${language}\`,
-      theme: 'vs-dark'
+      editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
+      resolve(editor);
     });
 
-    editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
-  });
+  }  )
+
 }
 
 return startMonaco({version, element, value, language})
