@@ -1,6 +1,6 @@
 {
   "name": "react-cdn-monaco-editor",
-  "version": "0.45.0",
+  "version": "0.46.0",
   "description": "Monaco Editor for React",
   "main": "lib/index.js",
   "module": "lib/index",
@@ -31,7 +31,6 @@
   },
   "homepage": "https://github.com/react-monaco-editor/react-monaco-editor",
   "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
-
   "devDependencies": {
     "@types/react": "^16.9.49",
     "@typescript-eslint/eslint-plugin": "^4.3.0",

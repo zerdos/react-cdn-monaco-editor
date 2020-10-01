@@ -46,7 +46,7 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
     if (editorValue !== value) {
       editor?.setValue(value);
     }
-  }, [value, language]);
+  }, [value, language, editorValue, editor, onchange]);
 
   return <div id="container" style={{ width, height }} />;
 };
@@ -70,16 +70,37 @@ const startMonaco = async ({version, element, value, language}) => {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
 
   require.config({ paths: { 'vs': vsPath } });
+
   return new Promise(function(resolve, reject){
+  
     require(["vs/editor/editor.main"], function () {
       const editor = monaco.editor.create(document.getElementById("container"), {
         value: \`${value}\`,
         language: \`${language}\`,
         theme: 'vs-dark'
       });
+
+        console.log(monaco.languages.typescript)
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+    target: monaco.languages.typescript.ScriptTarget.ES2016,
+    allowNonTsExtensions: true,
+    jsx: monaco.languages.typescript.React,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    module: monaco.languages.typescript.ModuleKind.CommonJS,
+    noEmit: true,
+   });
+
+   monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+    noSemanticValidation: true,
+    noSyntaxValidation: true,
+  });
+
+   monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    'declare module "react"')
   
       editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
       resolve(editor);
+    
     });
 
   }  )

@@ -1,5 +1,4 @@
 import React from "react";
-import { isConstructorDeclaration } from "typescript";
 import "./App.css";
 
 import { MonacoEditor } from 'react-cdn-monaco-editor';

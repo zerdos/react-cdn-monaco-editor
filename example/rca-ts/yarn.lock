@@ -8561,10 +8561,10 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
-react-cdn-monaco-editor@0.44.0:
-  version "0.44.0"
-  resolved "https://registry.yarnpkg.com/react-cdn-monaco-editor/-/react-cdn-monaco-editor-0.44.0.tgz#17f1d80e467bce8d0e4df5957899dcdcd14984cb"
-  integrity sha512-lWw9G4hu0DoPppg0X6wrt+a+dZ00yF1bCtBoL4KDgyQTJPQzmvgZItR9JJG29H81fzO6XalsBtWAF3aTWSd/ug==
+react-cdn-monaco-editor@0.45.0:
+  version "0.45.0"
+  resolved "https://registry.yarnpkg.com/react-cdn-monaco-editor/-/react-cdn-monaco-editor-0.45.0.tgz#d808284702b55cf0fa27c7028dd8b5f139a0f7e2"
+  integrity sha512-xRhCDcQxKFoPCCCq2/PZzEb4AZTiCU4IsaCvOr/RmKbWB7EHB6HRFA6GiTECFRzxkjF1F7BchCI9bvCSd8+CSg==
 
 react-dev-utils@^10.2.1:
   version "10.2.1"
