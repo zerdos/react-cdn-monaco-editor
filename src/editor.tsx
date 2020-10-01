@@ -17,15 +17,14 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
 }) => {
   React.useEffect(() => {
     if (typeof window === "undefined") return;
-    console.log("START MONACOOOO")
+    console.log("START MONACOOOO");
     startMonaco({
-        element: "container",
-        value,
-        language,
-        onChange
-      });
-  },[ value,
-    language]);
+      element: "container",
+      value,
+      language,
+      onChange,
+    });
+  }, [value, language]);
 
   return <div id="container" style={{ width, height }} />;
 };
