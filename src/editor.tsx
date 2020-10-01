@@ -1,4 +1,5 @@
 import React from "react";
+
 type MonacoEditorProps = {
   width?: string;
   height?: string;
@@ -16,17 +17,15 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
 }) => {
   React.useEffect(() => {
     if (typeof window === "undefined") return;
-    const init = async () => {
-      const monaco = await startMonaco({
+    console.log("START MONACOOOO")
+    startMonaco({
         element: "container",
         value,
         language,
-        onChange,
+        onChange
       });
-      console.log(monaco);
-    };
-    init();
-  });
+  },[ value,
+    language]);
 
   return <div id="container" style={{ width, height }} />;
 };
@@ -36,7 +35,7 @@ const startMonaco = ({
   element = "container",
   value = "",
   language = "typescript",
-  onChange = (_code) => {},
+  onChange = (_code: string) => {},
 }) =>
   new Function(
     "version",
@@ -45,7 +44,7 @@ const startMonaco = ({
     "language",
     "onChange",
     `
-const startMonaco = async ({version, element, value, language, onChange}) => {
+const startMonaco = async ({version, element, value, language}) => {
   const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs';
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
 
@@ -58,11 +57,11 @@ const startMonaco = async ({version, element, value, language, onChange}) => {
       theme: 'vs-dark'
     });
 
-    editor.onDidChangeModelContent((event)=>(${onChange})(editor.getValue()))
+    editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
   });
 }
 
-return startMonaco({version, element, value, language, onChange})
+return startMonaco({version, element, value, language})
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
     var s;
@@ -74,4 +73,4 @@ function loadScript(src) {
   });
 }
 `
-  )({ version, element, value, language, onChange });
+  )(version, element, value, language, onChange);
