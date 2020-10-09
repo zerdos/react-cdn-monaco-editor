@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 
-import { MonacoEditor } from 'react-cdn-monaco-editor';
+import { getEditor } from 'react-cdn-monaco-editor';
 
+const MonacoEditor = getEditor(React);
 function App() {
   const [code, changeCode] = React.useState(`const foo = "bar";
   console.log(foo);
