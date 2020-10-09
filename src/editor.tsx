@@ -1,5 +1,9 @@
 import React from "react";
 
+// import { DTSGen } from "./dts-gen.bundle.js";
+
+// import { generateModuleDeclarationFile } from "dts-gen";
+
 type MonacoEditorProps = {
   width?: string;
   height?: string;
@@ -7,9 +11,15 @@ type MonacoEditorProps = {
   language?: "typescript" | "javascript";
   onChange: (code: string) => void;
 };
+
 type ReactType = typeof React;
 
+
 const getMonacoEditor = (React: ReactType) => {
+  // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
+  // const dts = generateModuleDeclarationFile(React, "react");
+  // console.log(ReactTypeJs);
+
   const MonacoEditor: React.FC<MonacoEditorProps> = ({
     width = "600px",
     height = "400px",

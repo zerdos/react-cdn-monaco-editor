@@ -3,6 +3,7 @@ import "./App.css";
 
 import { getEditor } from 'react-cdn-monaco-editor';
 
+
 const MonacoEditor = getEditor(React);
 function App() {
   const [code, changeCode] = React.useState(`const foo = "bar";
