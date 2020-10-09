@@ -7,49 +7,56 @@ type MonacoEditorProps = {
   language?: "typescript" | "javascript";
   onChange: (code: string) => void;
 };
+type ReactType = typeof React;
 
-export const MonacoEditor: React.FC<MonacoEditorProps> = ({
-  width = "600px",
-  height = "400px",
-  value = "",
-  language = "typescript",
-  onChange = (_code) => {},
-}) => {
-  const [editor, setEditor] = React.useState<{
-    setValue: (code: string) => void;
-  } | null>(null);
-  const [editorValue, setEditorValue] = React.useState(value);
+const getMonacoEditor = (React: ReactType) => {
+  const MonacoEditor: React.FC<MonacoEditorProps> = ({
+    width = "600px",
+    height = "400px",
+    value = "",
+    language = "typescript",
+    onChange = (_code) => {},
+  }) => {
+    const [editor, setEditor] = React.useState<{
+      setValue: (code: string) => void;
+    } | null>(null);
+    const [editorValue, setEditorValue] = React.useState(value);
 
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
+    React.useEffect(() => {
+      if (typeof window === "undefined") return;
 
-    if (!editor) {
-      (async () => {
-        try {
-          const editor = await startMonaco({
-            element: "container",
-            value,
-            language,
-            onChange: (code) => {
-              setEditorValue(code);
-              onChange(code);
-            },
-          });
-          setEditor(editor);
-        } catch (e) {
-          console.log("Error attaching the editor", e);
-        }
-      })();
-      return;
-    }
+      if (!editor) {
+        (async () => {
+          try {
+            const editor = await startMonaco({
+              element: "container",
+              value,
+              language,
+              onChange: (code) => {
+                setEditorValue(code);
+                onChange(code);
+              },
+            });
+            setEditor(editor);
+          } catch (e) {
+            console.log("Error attaching the editor", e);
+          }
+        })();
+        return;
+      }
 
-    if (editorValue !== value) {
-      editor?.setValue(value);
-    }
-  }, [value, language]);
+      if (editorValue !== value) {
+        editor?.setValue(value);
+      }
+    }, [value, language]);
 
-  return <div id="container" style={{ width, height }} />;
+    return <div id="container" style={{ width, height }} />;
+  };
+
+  return MonacoEditor;
 };
+
+export const getEditor = getMonacoEditor;
 
 const startMonaco = ({
   version = "0.21.2",
@@ -95,8 +102,7 @@ const startMonaco = async ({version, element, value, language}) => {
     noSyntaxValidation: true,
   });
 
-   monaco.languages.typescript.typescriptDefaults.addExtraLib(
-    'declare module "react"')
+   monaco.languages.typescript.typescriptDefaults.addExtraLib(\`declare module "react"\`)
   
       editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
       resolve(editor);
