@@ -1,9 +1,5 @@
 import React from "react";
 
-// import { DTSGen } from "./dts-gen.bundle.js";
-
-// import { generateModuleDeclarationFile } from "dts-gen";
-
 type MonacoEditorProps = {
   width?: string;
   height?: string;
@@ -64,7 +60,6 @@ export const getEditor = (React: ReactType) => {
 
   return MonacoEditor;
 };
-
 
 const startMonaco = ({
   version = "0.21.2",
