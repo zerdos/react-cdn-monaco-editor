@@ -14,7 +14,7 @@ type MonacoEditorProps = {
 
 type ReactType = typeof React;
 
-const getMonacoEditor = (React: ReactType) => {
+export const getEditor = (React: ReactType) => {
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
   // const dts = generateModuleDeclarationFile(React, "react");
   // console.log(ReactTypeJs);
@@ -65,7 +65,6 @@ const getMonacoEditor = (React: ReactType) => {
   return MonacoEditor;
 };
 
-export const getEditor = getMonacoEditor;
 
 const startMonaco = ({
   version = "0.21.2",

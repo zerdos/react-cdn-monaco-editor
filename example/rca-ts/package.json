@@ -5,16 +5,16 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.6",
+    "@testing-library/user-event": "^12.1.7",
     "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.2",
-    "@types/react": "^16.9.49",
+    "@types/node": "^14.11.8",
+    "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
     "react": "^16.13.1",
+    "react-cdn-monaco-editor": "1.1.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "typescript": "~4.0.3",
-    "react-cdn-monaco-editor": "0.49.0"
+    "typescript": "~4.0.3"
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
