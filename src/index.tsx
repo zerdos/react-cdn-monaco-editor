@@ -5,13 +5,16 @@ type MonacoEditorProps = {
   height?: string;
   value?: string;
   language?: "typescript" | "javascript";
-  onChange: (code: string) => void
+  onChange: (code: string) => void;
 };
 
-
-export function getEditor(react: any) {
-  
-
+export function getEditor(
+  react: {
+    useState: <T>(state: T) => [T, (state: T) => void];
+    createElement: (el: string, props: unknown, children?: unknown) => unknown;
+    useEffect: (fn: () => unknown, depts: unknown[]) => unknown;
+  },
+) {
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
   // const dts = generateModuleDeclarationFile(React, "react");
   // console.log(ReactTypeJs);
@@ -21,10 +24,8 @@ export function getEditor(react: any) {
     height = "400px",
     value = "",
     language = "typescript",
-    onChange
+    onChange,
   }) => {
-    
-
     const [editor, setEditor] = react.useState(null);
     const [editorValue, setEditorValue] = react.useState(value);
 
@@ -42,7 +43,7 @@ export function getEditor(react: any) {
               onChange: (code) => {
                 setEditorValue(code);
                 onChange(code);
-              }
+              },
             });
             setEditor(editor);
           } catch (e) {
@@ -57,7 +58,10 @@ export function getEditor(react: any) {
       }
     }, [value, language]);
 
-    return react.createElement("div", {id: "container", style: { width, height } });
+    return react.createElement(
+      "div",
+      { id: "container", style: { width, height } },
+    ) as React.ReactElement<MonacoEditorProps>;
   };
 
   return MonacoEditor;
@@ -69,7 +73,8 @@ function startMonaco({
   element = "container",
   value = "",
   language = "typescript",
-  onChange}) {
+  onChange,
+}) {
   return new Function(
     "React",
     "version",
@@ -150,6 +155,6 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
-`
+`,
   )(React, version, element, value, language, onChange);
 }
