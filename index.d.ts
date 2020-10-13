@@ -1,4 +1,4 @@
-import type React from "react";
+/// <reference types="react" />
 declare type MonacoEditorProps = {
     width?: string;
     height?: string;
@@ -6,9 +6,5 @@ declare type MonacoEditorProps = {
     language?: "typescript" | "javascript";
     onChange: (code: string) => void;
 };
-export declare function getEditor(react: {
-    useState: <T>(state: T) => [T, (state: T) => void];
-    createElement: (el: string, props: unknown, children?: unknown) => unknown;
-    useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
-}): React.FC<MonacoEditorProps>;
+export declare function getEditor(_react: unknown): import("react").FC<MonacoEditorProps>;
 export {};

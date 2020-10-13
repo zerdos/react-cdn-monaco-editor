@@ -34,11 +34,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-export function getEditor(react) {
+export function getEditor(_react) {
     // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
     // const dts = generateModuleDeclarationFile(React, "react");
     // console.log(ReactTypeJs);
     var _this = this;
+    var react = _react;
     var MonacoEditor = function (_a) {
         var _b = _a.width, width = _b === void 0 ? "600px" : _b, _c = _a.height, height = _c === void 0 ? "400px" : _c, _d = _a.value, value = _d === void 0 ? "" : _d, _e = _a.language, language = _e === void 0 ? "typescript" : _e, onChange = _a.onChange;
         var _f = react.useState(null), editor = _f[0], setEditor = _f[1];

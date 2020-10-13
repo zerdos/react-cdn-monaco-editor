@@ -1,4 +1,3 @@
-import type React from "react";
 
 type MonacoEditorProps = {
   width?: string;
@@ -9,19 +8,21 @@ type MonacoEditorProps = {
 };
 
 export function getEditor(
-  react: {
-    useState: <T>(state: T) => [T, (state: T) => void];
-    createElement: (el: string, props: unknown, children?: unknown) => unknown;
-    useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
-  },
+  _react: unknown
 ) {
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
   // const dts = generateModuleDeclarationFile(React, "react");
   // console.log(ReactTypeJs);
 
+  const react = _react as {
+    useState: <T>(state: T) => [T, (state: T) => void];
+    createElement: (el: string, props: unknown, children?: unknown) => unknown;
+    useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
+  };
+
   const MonacoEditor: React.FC<MonacoEditorProps> = ({
     width = "600px",
-    height = "400px",
+  height = "400px",
     value = "",
     language = "typescript",
     onChange,
