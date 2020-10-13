@@ -2,9 +2,9 @@
   "name": "react-cdn-monaco-editor",
   "version": "1.3.9",
   "description": "Monaco Editor for React",
-  "main": "lib/editor.js",
-  "module": "lib/editor",
-  "types": "lib/editor.d.ts",
+  "main": "lib/index.js",
+  "module": "lib",
+  "types": "lib/index.d.ts",
   "scripts": {
     "preversion": "npm run lint",
     "build": "tsc",
