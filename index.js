@@ -61,7 +61,7 @@ export function getEditor(react) {
                                         onChange: function (code) {
                                             setEditorValue(code);
                                             onChange(code);
-                                        }
+                                        },
                                     })];
                             case 1:
                                 editor_1 = _a.sent();

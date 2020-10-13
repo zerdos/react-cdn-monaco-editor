@@ -9,6 +9,6 @@ declare type MonacoEditorProps = {
 export declare function getEditor(react: {
     useState: <T>(state: T) => [T, (state: T) => void];
     createElement: (el: string, props: unknown, children?: unknown) => unknown;
-    useEffect: (fn: () => unknown, depts: unknown[]) => unknown;
+    useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
 }): React.FC<MonacoEditorProps>;
 export {};
