@@ -5,12 +5,14 @@ type MonacoEditorProps = {
   height?: string;
   value?: string;
   language?: "typescript" | "javascript";
-  onChange: (code: string) => void;
+  onChange: (code: string) => void
 };
 
 type ReactType = typeof React;
 
-export const getEditor = (React: ReactType) => {
+export function getEditor(React: ReactType) {
+  
+
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
   // const dts = generateModuleDeclarationFile(React, "react");
   // console.log(ReactTypeJs);
@@ -20,11 +22,13 @@ export const getEditor = (React: ReactType) => {
     height = "400px",
     value = "",
     language = "typescript",
-    onChange = (_code) => {},
+    onChange
   }) => {
-    const [editor, setEditor] = React.useState<{
-      setValue: (code: string) => void;
-    } | null>(null);
+    const [editor, setEditor] = React.useState<
+      {
+        setValue: (code: string) => void;
+      } | null
+    >(null);
     const [editorValue, setEditorValue] = React.useState(value);
 
     React.useEffect(() => {
@@ -40,7 +44,7 @@ export const getEditor = (React: ReactType) => {
               onChange: (code) => {
                 setEditorValue(code);
                 onChange(code);
-              },
+              }
             });
             setEditor(editor);
           } catch (e) {
@@ -59,16 +63,15 @@ export const getEditor = (React: ReactType) => {
   };
 
   return MonacoEditor;
-};
+}
 
-const startMonaco = ({
+function startMonaco({
   version = "0.21.2",
   element = "container",
   value = "",
   language = "typescript",
-  onChange = (_code: string) => {},
-}) =>
-  new Function(
+  onChange}) {
+  return new Function(
     "version",
     "element",
     "value",
@@ -76,9 +79,11 @@ const startMonaco = ({
     "onChange",
     `
 const startMonaco = async ({version, element, value, language}) => {
+  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
+
   const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs';
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
-  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');
 
   require.config({ paths: { 'vs': vsPath } });
 
@@ -147,3 +152,4 @@ function loadScript(src) {
 }
 `
   )(version, element, value, language, onChange);
+}

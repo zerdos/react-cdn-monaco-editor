@@ -1,6 +1,6 @@
 {
   "name": "react-cdn-monaco-editor",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Monaco Editor for React",
   "main": "lib/index.js",
   "module": "lib/index",
@@ -10,7 +10,7 @@
     "build": "tsc",
     "clean": "rimraf lib",
     "format": "eslint --fix '{src,example}/**/*.{ts,tsx}'",
-    "lint": "eslint '{src,example}/**/*.{ts,tsx}'",
+    "lint": "deno lint --unstable src/",
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
@@ -33,16 +33,6 @@
   "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
   "devDependencies": {
     "@types/react": "^16.9.52",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.4.1",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.4",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.2",
     "typescript": "^4.0.3"
   }
 }

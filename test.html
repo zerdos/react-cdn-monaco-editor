@@ -2,7 +2,6 @@
 <head>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
-    <script crossorigin src="https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js"></script>   
 
 </head>
 <body>
@@ -10,7 +9,7 @@
     // import {DTSGen} from "";
     import {getEditor} from "./lib/editor.js"
 
-    console.log(DTSGen.generateIdentifierDeclarationFile("React", React.PureComponent));
+    // console.log(DTSGen.generateIdentifierDeclarationFile("React", React.PureComponent));
     const MonacoEditor = getEditor(React);
 
     const container = document.createElement("div")
