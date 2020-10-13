@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 declare type MonacoEditorProps = {
     width?: string;
     height?: string;
@@ -6,6 +6,5 @@ declare type MonacoEditorProps = {
     language?: "typescript" | "javascript";
     onChange: (code: string) => void;
 };
-declare type ReactType = typeof React;
-export declare function getEditor(React: ReactType): React.FC<MonacoEditorProps>;
+export declare function getEditor(react: any): React.FC<MonacoEditorProps>;
 export {};

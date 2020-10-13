@@ -34,17 +34,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import React from "react";
-export function getEditor(React) {
+export function getEditor(react) {
     // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
     // const dts = generateModuleDeclarationFile(React, "react");
     // console.log(ReactTypeJs);
     var _this = this;
     var MonacoEditor = function (_a) {
         var _b = _a.width, width = _b === void 0 ? "600px" : _b, _c = _a.height, height = _c === void 0 ? "400px" : _c, _d = _a.value, value = _d === void 0 ? "" : _d, _e = _a.language, language = _e === void 0 ? "typescript" : _e, onChange = _a.onChange;
-        var _f = React.useState(null), editor = _f[0], setEditor = _f[1];
-        var _g = React.useState(value), editorValue = _g[0], setEditorValue = _g[1];
-        React.useEffect(function () {
+        var _f = react.useState(null), editor = _f[0], setEditor = _f[1];
+        var _g = react.useState(value), editorValue = _g[0], setEditorValue = _g[1];
+        react.useEffect(function () {
             if (typeof window === "undefined")
                 return;
             if (!editor) {
@@ -55,6 +54,7 @@ export function getEditor(React) {
                             case 0:
                                 _a.trys.push([0, 2, , 3]);
                                 return [4 /*yield*/, startMonaco({
+                                        React: react,
                                         element: "container",
                                         value: value,
                                         language: language,
@@ -81,12 +81,12 @@ export function getEditor(React) {
                 editor === null || editor === void 0 ? void 0 : editor.setValue(value);
             }
         }, [value, language]);
-        return React.createElement("div", { id: "container", style: { width: width, height: height } });
+        return react.createElement("div", { id: "container", style: { width: width, height: height } });
     };
     return MonacoEditor;
 }
 function startMonaco(_a) {
-    var _b = _a.version, version = _b === void 0 ? "0.21.2" : _b, _c = _a.element, element = _c === void 0 ? "container" : _c, _d = _a.value, value = _d === void 0 ? "" : _d, _e = _a.language, language = _e === void 0 ? "typescript" : _e, onChange = _a.onChange;
-    return new Function("React", "version", "element", "value", "language", "onChange", "\nconst startMonaco = async ({React, version, element, value, language}) => {\n  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');\n  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js');\n\n  const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs';\n  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js');\n\n  require.config({ paths: { 'vs': vsPath } });\n\n  return new Promise(function(resolve, reject){\n  \n    require([\"vs/editor/editor.main\"], function () {\n\n\n\n      const editor = monaco.editor.create(document.getElementById(\"container\"), {\n        model: monaco.editor.createModel(`" + value + "`, \"typescript\", monaco.Uri.parse(\"file:///main.tsx\")),\n        value: `" + value + "`,\n        language: `" + language + "`,\n        theme: 'vs-dark'\n      });\n\n\n      monaco.editor.createModel( DTSGen.generateIdentifierDeclarationFile(\"React\", React) + `\n      declare module \"react\" {\n       export = React;\n       export as namespace React;\n      } `, \"typescript\", monaco.Uri.parse(\"file:///index.d.ts\"));\n\n\n\n        console.log(monaco.languages.typescript)\n  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({\n   \n    target: monaco.languages.typescript.ScriptTarget.ES2016,\n    allowNonTsExtensions: true,\n    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,\n    module: monaco.languages.typescript.ModuleKind.CommonJS,\n    noEmit: true,\n    typeRoots: [\"node_modules/@types\"],\n    jsx: monaco.languages.typescript.JsxEmit.React,\n    jsxFactory: 'React.createElement',\n\n    esModuleInterop: true\n   });\n\n   monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({\n    noSemanticValidation: true,\n    noSyntaxValidation: true,\n  });\n\n  \n      editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))\n      resolve(editor);\n    \n    });\n\n  }  )\n\n}\n\nreturn startMonaco({React, version, element, value, language})\nfunction loadScript(src) {\n  return new Promise(function (resolve, reject) {\n    var s;\n    s = document.createElement('script');\n    s.src = src;\n    s.onload = resolve;\n    s.onerror = reject;\n    document.head.appendChild(s);\n  });\n}\n")(React, version, element, value, language, onChange);
+    var React = _a.React, _b = _a.version, version = _b === void 0 ? "0.21.2" : _b, _c = _a.element, element = _c === void 0 ? "container" : _c, _d = _a.value, value = _d === void 0 ? "" : _d, _e = _a.language, language = _e === void 0 ? "typescript" : _e, onChange = _a.onChange;
+    return new Function("React", "version", "element", "value", "language", "onChange", "\nconst startMonaco = async ({React, version, element, value, language}) => {\n  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');\n  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js');\n\n  const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs';\n  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js');\n\n  require.config({ paths: { 'vs': vsPath } });\n\n  return new Promise(function(resolve, reject){\n  \n    require([\"vs/editor/editor.main\"], function () {\n\n\n\n      const editor = monaco.editor.create(document.getElementById(\"container\"), {\n        model: monaco.editor.createModel(`" + value + "`, \"typescript\", monaco.Uri.parse(\"file:///main.tsx\")),\n        value: `" + value + "`,\n        language: `" + language + "`,\n        theme: 'vs-dark'\n      });\n\n\n      monaco.editor.createModel( DTSGen.generateIdentifierDeclarationFile(\"React\", React) + `\n      declare module \"react\" {\n       export = React;\n       export as namespace React;\n      } `, \"typescript\", monaco.Uri.parse(\"file:///index.d.ts\"));\n\n\n\n        console.log(monaco.languages.typescript)\n  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({\n   \n    target: monaco.languages.typescript.ScriptTarget.ES2016,\n    allowNonTsExtensions: true,\n    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,\n    module: monaco.languages.typescript.ModuleKind.CommonJS,\n    noEmit: true,\n    typeRoots: [\"node_modules/@types\"],\n    jsx: monaco.languages.typescript.JsxEmit.React,\n    jsxFactory: 'React.createElement',\n\n    esModuleInterop: true\n   });\n\n   monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({\n    noSemanticValidation: true,\n    noSyntaxValidation: true,\n  });\n\n  \n      editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))\n      resolve(editor);\n    \n    })\n\n  }  )\n\n}\n\nreturn startMonaco({React, version, element, value, language})\nfunction loadScript(src) {\n  return new Promise(function (resolve, reject) {\n    var s;\n    s = document.createElement('script');\n    s.src = src;\n    s.onload = resolve;\n    s.onerror = reject;\n    document.head.appendChild(s);\n  });\n}\n")(React, version, element, value, language, onChange);
 }
 //# sourceMappingURL=index.js.map

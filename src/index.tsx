@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 type MonacoEditorProps = {
   width?: string;
@@ -8,9 +8,8 @@ type MonacoEditorProps = {
   onChange: (code: string) => void
 };
 
-type ReactType = typeof React;
 
-export function getEditor(React: ReactType) {
+export function getEditor(react: any) {
   
 
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
@@ -24,20 +23,19 @@ export function getEditor(React: ReactType) {
     language = "typescript",
     onChange
   }) => {
-    const [editor, setEditor] = React.useState<
-      {
-        setValue: (code: string) => void;
-      } | null
-    >(null);
-    const [editorValue, setEditorValue] = React.useState(value);
+    
 
-    React.useEffect(() => {
+    const [editor, setEditor] = react.useState(null);
+    const [editorValue, setEditorValue] = react.useState(value);
+
+    react.useEffect(() => {
       if (typeof window === "undefined") return;
 
       if (!editor) {
         (async () => {
           try {
             const editor = await startMonaco({
+              React: react,
               element: "container",
               value,
               language,
@@ -59,13 +57,14 @@ export function getEditor(React: ReactType) {
       }
     }, [value, language]);
 
-    return <div id="container" style={{ width, height }} />;
+    return react.createElement("div", {id: "container", style: { width, height } });
   };
 
   return MonacoEditor;
 }
 
 function startMonaco({
+  React: React,
   version = "0.21.2",
   element = "container",
   value = "",
@@ -134,7 +133,7 @@ const startMonaco = async ({React, version, element, value, language}) => {
       editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
       resolve(editor);
     
-    });
+    })
 
   }  )
 
