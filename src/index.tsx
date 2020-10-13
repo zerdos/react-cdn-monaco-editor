@@ -72,13 +72,14 @@ function startMonaco({
   language = "typescript",
   onChange}) {
   return new Function(
+    "React",
     "version",
     "element",
     "value",
     "language",
     "onChange",
     `
-const startMonaco = async ({version, element, value, language}) => {
+const startMonaco = async ({React, version, element, value, language}) => {
   await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
 
@@ -139,7 +140,7 @@ const startMonaco = async ({version, element, value, language}) => {
 
 }
 
-return startMonaco({version, element, value, language})
+return startMonaco({React, version, element, value, language})
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
     var s;
@@ -151,5 +152,5 @@ function loadScript(src) {
   });
 }
 `
-  )(version, element, value, language, onChange);
+  )(React, version, element, value, language, onChange);
 }
