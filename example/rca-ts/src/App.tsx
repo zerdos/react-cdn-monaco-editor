@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import { getEditor } from 'react-cdn-monaco-editor';
-
+import { getEditor } from "react-cdn-monaco-editor";
 
 const MonacoEditor = getEditor(React);
 function App() {

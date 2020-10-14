@@ -1,4 +1,3 @@
-import React from "react";
 
 type MonacoEditorProps = {
   width?: string;
@@ -8,32 +7,37 @@ type MonacoEditorProps = {
   onChange: (code: string) => void;
 };
 
-type ReactType = typeof React;
-
-export const getEditor = (React: ReactType) => {
+export function getEditor(
+  _react: unknown
+) {
   // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
   // const dts = generateModuleDeclarationFile(React, "react");
   // console.log(ReactTypeJs);
 
+  const react = _react as {
+    useState: <T>(state: T) => [T, (state: T) => void];
+    createElement: (el: string, props: unknown, children?: unknown) => unknown;
+    useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
+  };
+
   const MonacoEditor: React.FC<MonacoEditorProps> = ({
     width = "600px",
-    height = "400px",
+  height = "400px",
     value = "",
     language = "typescript",
-    onChange = (_code) => {},
+    onChange,
   }) => {
-    const [editor, setEditor] = React.useState<{
-      setValue: (code: string) => void;
-    } | null>(null);
-    const [editorValue, setEditorValue] = React.useState(value);
+    const [editor, setEditor] = react.useState(null);
+    const [editorValue, setEditorValue] = react.useState(value);
 
-    React.useEffect(() => {
+    react.useEffect(() => {
       if (typeof window === "undefined") return;
 
       if (!editor) {
         (async () => {
           try {
             const editor = await startMonaco({
+              React: react,
               element: "container",
               value,
               language,
@@ -55,30 +59,37 @@ export const getEditor = (React: ReactType) => {
       }
     }, [value, language]);
 
-    return <div id="container" style={{ width, height }} />;
+    return react.createElement(
+      "div",
+      { id: "container", style: { width, height } },
+    ) as React.ReactElement<MonacoEditorProps>;
   };
 
   return MonacoEditor;
-};
+}
 
-const startMonaco = ({
+function startMonaco({
+  React: React,
   version = "0.21.2",
   element = "container",
   value = "",
   language = "typescript",
-  onChange = (_code: string) => {},
-}) =>
-  new Function(
+  onChange,
+}) {
+  return new Function(
+    "React",
     "version",
     "element",
     "value",
     "language",
     "onChange",
     `
-const startMonaco = async ({version, element, value, language}) => {
+const startMonaco = async ({React, version, element, value, language}) => {
+  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
+
   const vsPath = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs';
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js');
-  await loadScript('https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js');
 
   require.config({ paths: { 'vs': vsPath } });
 
@@ -128,13 +139,13 @@ const startMonaco = async ({version, element, value, language}) => {
       editor.onDidChangeModelContent((event)=>onChange(editor.getValue()))
       resolve(editor);
     
-    });
+    })
 
   }  )
 
 }
 
-return startMonaco({version, element, value, language})
+return startMonaco({React, version, element, value, language})
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
     var s;
@@ -145,5 +156,6 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
-`
-  )(version, element, value, language, onChange);
+`,
+  )(React, version, element, value, language, onChange);
+}

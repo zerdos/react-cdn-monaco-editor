@@ -1,1 +1,0 @@
-export { getEditor } from "./editor";
