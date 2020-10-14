@@ -1,2 +1,1 @@
-export declare const MonacoEditor: any;
-export declare const getEditor: () => any;
+export declare const getEditor: () => Promise<any>;
