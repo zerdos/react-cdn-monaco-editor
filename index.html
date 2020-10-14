@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">        
+    <meta content="utf-8" http-equiv="encoding">
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
 
@@ -9,13 +9,13 @@
 <body>
 <script type="module">
     // import {DTSGen} from "";
-    import {getEditor} from "./lib/index.js"
+    import {getEditor} from "./index.js"
 
     // console.log(DTSGen.generateIdentifierDeclarationFile("React", React.PureComponent));
     const MonacoEditor = getEditor(React);
 
     const container = document.createElement("div")
-    const editor = React.createElement(MonacoEditor, {onChange: (ch)=>console.log(ch), height: "100vh", width:"50%", value:`import React from "react";
+    const editor = React.createElement(MonacoEditor, {height: "100vh", width:"50%", value:`import React from "react";
 
 
 const Hello: React.Component = ({name}) =>{
