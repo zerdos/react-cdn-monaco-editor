@@ -1,10 +1,27 @@
 import React from "react";
 import "./App.css";
 
-import { MonacoEditor } from "react-cdn-monaco-editor";
+import { getEditor } from "react-cdn-monaco-editor";
 
-// const MonacoEditor = getEditor(React);
+let MonacoEditor: React.FC<{height: string, width: string, onChange: (code: string)=>void, value: string}>;
+
+
 function App() {
+
+  const [monacoLoaded, setLoaded ] = React.useState (false);
+
+  React.useEffect(()=>{
+
+
+    (async()=>{
+
+        MonacoEditor = await getEditor();
+        setLoaded(true);
+    })()
+
+
+  }, [])
+
   const [code, changeCode] = React.useState(`const foo = "bar";
   console.log(foo);
         `);
@@ -20,12 +37,12 @@ function App() {
       </button>
       <pre>{code}</pre>
 
-      <MonacoEditor
+      {monacoLoaded && <MonacoEditor
         height="100vh"
         width="50%"
         onChange={changeCode}
         value={code}
-      />
+      />}
     </div>
   );
 }

@@ -67,15 +67,19 @@ function loadScript(src) {
         document.head.appendChild(s);
     });
 }
-export function getEditor() {
+export function getEditor({ createElement, useState, useEffect }) {
     // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
     // const dts = generateModuleDeclarationFile(React, "react");
     // console.log(ReactTypeJs);
-    const react = window.React;
+    // const react = window.React as {
+    //   useState: <T>(state: T) => [T, (state: T) => void];
+    //   createElement: (el: string, props: unknown, children?: unknown) => unknown;
+    //   useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
+    // };
     const MonacoEditor = ({ width = "600px", height = "400px", value = "", language = "typescript", onChange, }) => {
-        const [editor, setEditor] = react.useState(null);
-        const [editorValue, setEditorValue] = react.useState(value);
-        react.useEffect(() => {
+        const [editor, setEditor] = useState(null);
+        const [editorValue, setEditorValue] = useState(value);
+        useEffect(() => {
             if (typeof window === "undefined")
                 return;
             if (!editor) {
@@ -101,7 +105,7 @@ export function getEditor() {
                 editor === null || editor === void 0 ? void 0 : editor.setValue(value);
             }
         }, [value, language]);
-        return react.createElement("div", { id: "container", style: { width, height } });
+        return createElement("div", { id: "container", style: { width, height } });
     };
     return MonacoEditor;
 }

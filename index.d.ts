@@ -1,1 +1,1 @@
-export declare const getEditor: () => Promise<any>;
+export declare const getEditor: (React: any) => Promise<any>;
