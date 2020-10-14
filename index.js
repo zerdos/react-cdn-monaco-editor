@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var version = "0.21.2";
 export function getEditor(_react) {
     // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
     // const dts = generateModuleDeclarationFile(React, "react");
@@ -87,37 +88,48 @@ export function getEditor(_react) {
 var startMonaco = function (_a) {
     var onChange = _a.onChange, value = _a.value, language = _a.language;
     return __awaiter(void 0, void 0, void 0, function () {
-        var vsPath, reactDts;
+        var vsPath, reactDts, reactGlobalDts, propTypesDTS, cssTypeDts;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: 
                 // await loadScript(
                 //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
                 // );
-                return [4 /*yield*/, loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js")];
+                return [4 /*yield*/, loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js")];
                 case 1:
                     // await loadScript(
                     //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
                     // );
                     _b.sent();
-                    vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs";
-                    return [4 /*yield*/, loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js")];
+                    vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs";
+                    return [4 /*yield*/, loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/" + version + "/min/vs/loader.min.js")];
                 case 2:
                     _b.sent();
                     return [4 /*yield*/, fetch("https://unpkg.com/@types/react@16.9.52/index.d.ts")];
                 case 3:
                     reactDts = _b.sent();
-                    // let reactPropTypesDts = fetch("https://unpkg.com/@types/prop-types@15.7.3/index.d.ts")
-                    // let cssTypeDts = fetch("https://unpkg.com/csstype@3.0.3/index.d.ts");
+                    return [4 /*yield*/, fetch("https://unpkg.com/@types/react@16.9.52/global.d.ts")];
+                case 4:
+                    reactGlobalDts = _b.sent();
+                    return [4 /*yield*/, fetch("https://unpkg.com/@types/prop-types@15.7.3/index.d.ts")
+                        // 
+                    ];
+                case 5:
+                    propTypesDTS = _b.sent();
+                    return [4 /*yield*/, fetch("https://unpkg.com/csstype@3.0.3/index.d.ts")];
+                case 6:
+                    cssTypeDts = _b.sent();
                     // @ts-ignore
                     require.config({ paths: { "vs": vsPath } });
                     return [2 /*return*/, new Promise(function (resolve, reject) {
                             // @ts-ignore
+                            var document = window.document;
+                            // @ts-ignore
                             require(["vs/editor/editor.main"], function () {
                                 return __awaiter(this, void 0, void 0, function () {
-                                    var monaco, editor, _a, _b;
-                                    return __generator(this, function (_c) {
-                                        switch (_c.label) {
+                                    var monaco, editor, _a, _b, _c, _d, _e, _f, _g, _h;
+                                    return __generator(this, function (_j) {
+                                        switch (_j.label) {
                                             case 0:
                                                 monaco = window.monaco;
                                                 try {
@@ -132,12 +144,22 @@ var startMonaco = function (_a) {
                                                     language: language,
                                                     theme: "vs-dark",
                                                 });
-                                                _b = (_a = monaco.editor).createModel;
-                                                return [4 /*yield*/, reactDts.text()];
+                                                _b = (_a = monaco.languages.typescript.typescriptDefaults).addExtraLib;
+                                                return [4 /*yield*/, cssTypeDts.text()];
                                             case 1:
-                                                _b.apply(_a, [_c.sent(), "typescript",
-                                                    monaco.Uri.parse("file:///node_modules/@types/react/index.d.ts")]);
-                                                console.log(monaco.languages.typescript);
+                                                _b.apply(_a, [_j.sent(), "file:///node_modules/@types/csstype/index.d.ts"]);
+                                                _d = (_c = monaco.languages.typescript.typescriptDefaults).addExtraLib;
+                                                return [4 /*yield*/, reactGlobalDts.text()];
+                                            case 2:
+                                                _d.apply(_c, [_j.sent(), "file:///node_modules/@types/react/global.d.ts"]);
+                                                _f = (_e = monaco.languages.typescript.typescriptDefaults).addExtraLib;
+                                                return [4 /*yield*/, propTypesDTS.text()];
+                                            case 3:
+                                                _f.apply(_e, [_j.sent(), "file:///node_modules/@types/prop-type/index.d.ts"]);
+                                                _h = (_g = monaco.languages.typescript.typescriptDefaults).addExtraLib;
+                                                return [4 /*yield*/, reactDts.text()];
+                                            case 4:
+                                                _h.apply(_g, [_j.sent(), "file:///node_modules/@types/react/index.d.ts"]);
                                                 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
                                                     target: monaco.languages.typescript.ScriptTarget.ES2016,
                                                     allowNonTsExtensions: true,

@@ -103,6 +103,8 @@ const startMonaco = async (
 
   return new Promise(function (resolve, reject) {
     // @ts-ignore
+    const document = window.document;
+    // @ts-ignore
     require(["vs/editor/editor.main"], async function () {
       const monaco = (window as unknown as { monaco: monacoType }).monaco;
 
