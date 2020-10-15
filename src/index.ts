@@ -1,3 +1,4 @@
+import type {startMonaco as StartMonaco} from "./editor";
 
 export async function startMonaco(
   { onChange, code }
@@ -7,8 +8,8 @@ export async function startMonaco(
 
   const replaced = remoteAsText.replaceAll("export", "");
 
-  const stM = new Function(`return startMonaco; 
+  const stM: typeof StartMonaco = new Function(`return startMonaco; 
   ${replaced}`)();
 
   return stM({ code, onChange });
-};
+} 
