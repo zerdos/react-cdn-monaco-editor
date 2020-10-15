@@ -1,12 +1,12 @@
 import type monaco from "monaco-editor";
 
 type monacoType = typeof monaco;
-let cachedEditor: monaco.editor.IStandaloneCodeEditor;
+let cachedEditor: monaco.editor.IStandaloneCodeEditor = undefined;
 
 export async function startMonaco(
   { onChange, code },
 ) {
-  if (cachedEditor) return cachedEditor;
+  if (!!cachedEditor) return cachedEditor;
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
     async function (resolve, reject) {
       const version = "0.21.2";

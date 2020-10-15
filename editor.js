@@ -1,6 +1,6 @@
-let cachedEditor;
+let cachedEditor = undefined;
 export async function startMonaco({ onChange, code }) {
-    if (cachedEditor)
+    if (!!cachedEditor)
         return cachedEditor;
     return new Promise(async function (resolve, reject) {
         const version = "0.21.2";
@@ -37,7 +37,7 @@ export async function startMonaco({ onChange, code }) {
                 model: monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx")),
                 value: code,
                 language: "typescript",
-                theme: "dark",
+                theme: "vs-dark",
             });
             cachedEditor = editor;
             (async () => {
