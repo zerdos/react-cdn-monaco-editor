@@ -7,15 +7,15 @@
 
 </head>
 <body>
-<script>
-   
-   
+<script type="module">
+   import {startMonaco} from "./lib/editor.js";
+
    const editor = () => {
 
     // React.useEffect(()=>{
 
         const once = async ()=>{
-            const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
+            // const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
   
            await startMonaco({value: `import React from "react";
 

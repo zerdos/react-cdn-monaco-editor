@@ -1,5 +1,4 @@
-import React from "react";
-async function startMonaco({ onChange, value, language }) {
+export async function startMonaco({ onChange, value }) {
     const version = "0.21.2";
     // await loadScript(
     //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
@@ -24,7 +23,7 @@ async function startMonaco({ onChange, value, language }) {
             const editor = monaco.editor.create(document.getElementById("container"), {
                 model: monaco.editor.createModel(value, "typescript", monaco.Uri.parse("file:///main.tsx")),
                 value: value,
-                language: language,
+                language: "typescript",
                 theme: "vs-dark",
             });
             (async () => {
@@ -68,35 +67,4 @@ function loadScript(src) {
         document.head.appendChild(s);
     });
 }
-export const MonacoEditor = ({ width = "600px", height = "400px", value = "", language = "typescript", onChange, }) => {
-    const [editor, setEditor] = React.useState(null);
-    const [editorValue, setEditorValue] = React.useState(value);
-    React.useEffect(() => {
-        if (typeof window === "undefined")
-            return;
-        if (!editor) {
-            (async () => {
-                try {
-                    const editor = await startMonaco({
-                        value,
-                        language,
-                        onChange: (code) => {
-                            setEditorValue(code);
-                            onChange(code);
-                        },
-                    });
-                    setEditor(editor);
-                }
-                catch (e) {
-                    console.log("Error attaching the editor", e);
-                }
-            })();
-            return;
-        }
-        if (editorValue !== value) {
-            editor === null || editor === void 0 ? void 0 : editor.setValue(value);
-        }
-    }, [value, language]);
-    return React.createElement("div", { id: "container", style: { width, height } });
-};
 //# sourceMappingURL=editor.js.map
