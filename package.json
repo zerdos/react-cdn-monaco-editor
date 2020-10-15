@@ -1,37 +1,37 @@
 {
-  "name": "react-cdn-monaco-editor",
-  "version": "1.6.3",
-  "description": "Monaco Editor for React",
-  "main": "index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "tsc && cp -f lib/* ./",
-    "clean": "rimraf lib index.js",
-    "format": "deno fmt srv",
-    "prepublishOnly": "npm run build"
-  },
-  "keywords": [
-    "monaco",
-    "editor",
-    "react",
-    "vscode"
-  ],
-  "authors": [
-    "Daniele Esposti <daniele.espsoti@gmail.com>",
-    "Dominik Moritz <domoritz@cs.washington.edu>",
-    "Leon Shi <superRaytin@gmail.com>",
-    "Zoltan Erdos <zolika84@gmail.com>"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zerdos/react-monaco-editor/issues"
-  },
-  "homepage": "https://github.com/react-monaco-editor/react-monaco-editor",
-  "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
-  "devDependencies": {
-    "@types/react": "^16.9.52",
-    "@types/webpack-env": "^1.15.3",
-    "monaco-editor": "^0.21.2",
-    "typescript": "^4.0.3"
-  }
+    "name": "react-cdn-monaco-editor",
+    "version": "1.6.4",
+    "description": "Monaco Editor for React",
+    "main": "index.js",
+    "sideEffects": false,
+    "scripts": {
+        "build": "tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && cp -f lib/* ./",
+        "clean": "rimraf lib index.js",
+        "format": "deno fmt srv",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "monaco",
+        "editor",
+        "react",
+        "vscode"
+    ],
+    "authors": [
+        "Daniele Esposti <daniele.espsoti@gmail.com>",
+        "Dominik Moritz <domoritz@cs.washington.edu>",
+        "Leon Shi <superRaytin@gmail.com>",
+        "Zoltan Erdos <zolika84@gmail.com>"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zerdos/react-monaco-editor/issues"
+    },
+    "homepage": "https://github.com/react-monaco-editor/react-monaco-editor",
+    "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
+    "devDependencies": {
+        "@types/react": "^16.9.52",
+        "@types/webpack-env": "^1.15.3",
+        "monaco-editor": "^0.21.2",
+        "typescript": "^4.0.3"
+    }
 }
