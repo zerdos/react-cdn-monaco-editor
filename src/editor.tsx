@@ -1,13 +1,12 @@
-import type monaco from "monaco-editor";
+cimport type monaco from "monaco-editor";
 
 type monacoType = typeof monaco;
 
 export async function startMonaco(
   { onChange, value },
-){
+) {
   const version = "0.21.2";
 
-  
   // await loadScript(
   //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
   // );
@@ -19,13 +18,11 @@ export async function startMonaco(
   const vsPath =
     `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs`;
 
-
   await loadScript(
     `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`,
   );
 
-
-    // @ts-ignore
+  // @ts-ignore
   require.config({ paths: { "vs": vsPath } });
 
   return new Promise(function (resolve, reject) {
@@ -54,42 +51,42 @@ export async function startMonaco(
           theme: "vs-dark",
         },
       );
-      
-      
-    (async()=>{
 
-                const reactDts = await fetch(
-        "https://unpkg.com/@types/react@16.9.52/index.d.ts",
-      );
-      const reactGlobalDts = await fetch(
-        "https://unpkg.com/@types/react@16.9.52/global.d.ts",
-      );
-      const propTypesDTS = await fetch("https://unpkg.com/@types/prop-types@15.7.3/index.d.ts")
-      const  cssTypeDts = await fetch("https://unpkg.com/csstype@3.0.3/index.d.ts");
+      (async () => {
+        const reactDts = await fetch(
+          "https://unpkg.com/@types/react@16.9.52/index.d.ts",
+        );
+        const reactGlobalDts = await fetch(
+          "https://unpkg.com/@types/react@16.9.52/global.d.ts",
+        );
+        const propTypesDTS = await fetch(
+          "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
+        );
+        const cssTypeDts = await fetch(
+          "https://unpkg.com/csstype@3.0.3/index.d.ts",
+        );
 
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        await cssTypeDts.text(),
-        "file:///node_modules/@types/csstype/index.d.ts"
-      )
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          await cssTypeDts.text(),
+          "file:///node_modules/@types/csstype/index.d.ts",
+        );
 
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        await reactGlobalDts.text(),
-        "file:///node_modules/@types/react/global.d.ts"
-      )
-      
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          await reactGlobalDts.text(),
+          "file:///node_modules/@types/react/global.d.ts",
+        );
 
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        await propTypesDTS.text(),
-        "file:///node_modules/@types/prop-type/index.d.ts"
-      )
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          await propTypesDTS.text(),
+          "file:///node_modules/@types/prop-type/index.d.ts",
+        );
 
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        await reactDts.text(),
-        "file:///node_modules/@types/react/index.d.ts"
-      )
-    })()
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          await reactDts.text(),
+          "file:///node_modules/@types/react/index.d.ts",
+        );
+      })();
 
-      
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         target: monaco.languages.typescript.ScriptTarget.ES2016,
         allowNonTsExtensions: true,
@@ -113,7 +110,7 @@ export async function startMonaco(
       resolve(editor);
     });
   });
-};
+}
 
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
