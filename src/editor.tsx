@@ -3,7 +3,7 @@ import type monaco from "monaco-editor";
 type monacoType = typeof monaco;
 
 export async function startMonaco(
-  { onChange, value },
+  { onChange, code },
 ) {
   const version = "0.21.2";
 
@@ -42,11 +42,11 @@ export async function startMonaco(
         document.getElementById("container"),
         {
           model: monaco.editor.createModel(
-            value,
+            code,
             "typescript",
             monaco.Uri.parse("file:///main.tsx"),
           ),
-          value: value,
+          value: code,
           language: "typescript",
           theme: "vs-dark",
         },

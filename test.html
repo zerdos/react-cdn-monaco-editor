@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <!-- <meta content="text/html;charset=utf-8" http-equiv="Content-Type"> -->
     <meta content="utf-8" http-equiv="encoding">        
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
@@ -17,7 +17,7 @@
         const once = async ()=>{
             // const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
   
-           await startMonaco({value: `import React from "react";
+           await startMonaco({code: `import React from "react";
 
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
 }
 
 export default App;
-`, onChange: (code)=>console.log("code")});
+`, onChange: (code)=>console.log(code)});
 
         }
         once();

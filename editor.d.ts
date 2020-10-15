@@ -1,4 +1,4 @@
-export declare function startMonaco({ onChange, value }: {
+export declare function startMonaco({ onChange, code }: {
     onChange: any;
-    value: any;
+    code: any;
 }): Promise<unknown>;

@@ -1,4 +1,4 @@
-export async function startMonaco({ onChange, value }) {
+export async function startMonaco({ onChange, code }) {
     const version = "0.21.2";
     // await loadScript(
     //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
@@ -21,8 +21,8 @@ export async function startMonaco({ onChange, value }) {
                 reject(e);
             }
             const editor = monaco.editor.create(document.getElementById("container"), {
-                model: monaco.editor.createModel(value, "typescript", monaco.Uri.parse("file:///main.tsx")),
-                value: value,
+                model: monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx")),
+                value: code,
                 language: "typescript",
                 theme: "vs-dark",
             });
