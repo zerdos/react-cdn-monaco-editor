@@ -6,7 +6,7 @@ let cachedEditor: monaco.editor.IStandaloneCodeEditor = undefined;
 export async function startMonaco(
   { onChange, code },
 ) {
-  if (!!cachedEditor) return cachedEditor;
+  if (window["monaco"]) return cachedEditor;
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
     async function (resolve, reject) {
       const version = "0.21.2";
