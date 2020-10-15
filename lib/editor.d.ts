@@ -1,4 +1,5 @@
+import type monaco from "monaco-editor";
 export declare function startMonaco({ onChange, code }: {
     onChange: any;
     code: any;
-}): Promise<unknown>;
+}): Promise<monaco.editor.IStandaloneCodeEditor>;

@@ -7,7 +7,7 @@ export async function startMonaco(
   { onChange, code },
 ) {
   
-  return new Promise( async function (resolve, reject) {
+  return new Promise<monaco.editor.IStandaloneCodeEditor>( async function (resolve, reject) {
 
 
     const version = "0.21.2";
