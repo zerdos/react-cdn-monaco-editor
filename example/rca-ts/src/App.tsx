@@ -40,11 +40,11 @@ const MonacoEditor: React.FC<
           )).text()).replace("export ", ""),
       )();
 
-      await startMonaco({ value: code, onChange });
+      await startMonaco({ code, onChange });
     };
 
     once();
-  }, []);
+  }, [code, onChange]);
 
   return <div style={{ height: "100vh", width: "50%" }} id="container" />;
 };
