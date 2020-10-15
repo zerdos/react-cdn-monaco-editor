@@ -1,1 +1,1 @@
-export declare const getEditor: (React: any) => Promise<any>;
+export declare const startMonaco: (code: string, onChange: (code: string) => void) => Promise<void>;
