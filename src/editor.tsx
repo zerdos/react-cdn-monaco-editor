@@ -94,6 +94,10 @@ export async function startMonaco(
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         target: monaco.languages.typescript.ScriptTarget.ES2016,
         allowNonTsExtensions: true,
+        allowUmdGlobalAccess: true,
+        strict: true,
+        allowJs: true,
+        allowSyntheticDefaultImports: true,
         moduleResolution:
           monaco.languages.typescript.ModuleResolutionKind.NodeJs,
         module: monaco.languages.typescript.ModuleKind.CommonJS,
@@ -106,8 +110,8 @@ export async function startMonaco(
       });
 
       monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-        noSemanticValidation: true,
-        noSyntaxValidation: true,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
       });
 
       editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));
