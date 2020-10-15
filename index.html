@@ -1,29 +1,77 @@
 <!DOCTYPE html>
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">        
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
 
 </head>
 <body>
 <script type="module">
-    // import {DTSGen} from "";
-    import {getEditor} from "./index.js"
+<<<<<<< HEAD
+   import {startMonaco} from "./lib/editor.js";
+=======
+   import {startMonaco} from "./lib/index.js";
+>>>>>>> 1fbc299de8b79f2f7c8f424b1f5ce23d809214d9
 
-    // console.log(DTSGen.generateIdentifierDeclarationFile("React", React.PureComponent));
-    const MonacoEditor = getEditor(React);
+   const editor = () => {
 
-    const container = document.createElement("div")
-    const editor = React.createElement(MonacoEditor, {height: "100vh", width:"50%", value:`import React from "react";
+    // React.useEffect(()=>{
+
+        const once = async ()=>{
+            // const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
+  
+<<<<<<< HEAD
+           await startMonaco({code: `import React from "react";
 
 
-const Hello: React.Component = ({name}) =>{
+function App() {
 
-    return <h1>Hello {name}</h1>
+
+  const [code, changeCode] = React.useState("const foo = 42;");
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          changeCode("const bar = 'foo';");
+        }}
+      >
+        Reset
+      </button>
+      <pre>{code}</pre>
+    
+     <footer>the end</footer>
+    </div>
+  );
 }
 
+export default App;
+`, onChange: (code)=>console.log(code)});
 
-`});
-    ReactDOM.render(editor, container);
-    document.body.appendChild(container);
+        }
+        once();
+=======
+           await startMonaco({code: `const foo = 1;
+`, onChange: (code)=>console.log(code)});
+
+        }
+
+
+        once();
+      // })
+>>>>>>> 1fbc299de8b79f2f7c8f424b1f5ce23d809214d9
+
+
+       return React.createElement("div", {onChange: (ch)=>console.log(ch), style: {height: "100vh", width:"50%"}, id: "container"})
+    
+    }
+ 
+    const container = document.createElement("div")
+
+        ReactDOM.render(editor(), container);
+
+        document.body.appendChild(container);
+   
 </script>
 </body>

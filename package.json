@@ -1,16 +1,14 @@
 {
   "name": "react-cdn-monaco-editor",
-  "version": "1.3.17",
+  "version": "1.5.3",
   "description": "Monaco Editor for React",
   "main": "index.js",
   "sideEffects": false,
   "scripts": {
-    "preversion": "npm run lint",
-    "build": "tsc && mv lib/* ./",
+    "build": "tsc && cp -f lib/* ./",
     "clean": "rimraf lib index.js",
-    "format": "eslint --fix '{src,example}/**/*.{ts,tsx}'",
-    "lint": "deno lint --unstable src/",
-    "prepublishOnly": "npm run lint && npm run build"
+    "format": "deno fmt srv",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "monaco",
@@ -32,6 +30,8 @@
   "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
   "devDependencies": {
     "@types/react": "^16.9.52",
+    "@types/webpack-env": "^1.15.3",
+    "monaco-editor": "^0.21.2",
     "typescript": "^4.0.3"
   }
 }
