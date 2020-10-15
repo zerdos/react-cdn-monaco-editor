@@ -1,4 +1,7 @@
+let cachedEditor;
 export async function startMonaco({ onChange, code }) {
+    if (cachedEditor)
+        return cachedEditor;
     return new Promise(async function (resolve, reject) {
         const version = "0.21.2";
         // await loadScript(
@@ -21,11 +24,22 @@ export async function startMonaco({ onChange, code }) {
                 reject(e);
             }
             const editor = monaco.editor.create(document.getElementById("container"), {
+                formatOnType: true,
+                automaticLayout: true,
+                autoIndent: "full",
+                autoClosingQuotes: "always",
+                autoClosingBrackets: "always",
+                autoClosingOvertype: "always",
+                autoSurround: "brackets",
+                acceptSuggestionOnCommitCharacter: true,
+                trimAutoWhitespace: true,
+                codeActionsOnSaveTimeout: 100,
                 model: monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx")),
                 value: code,
                 language: "typescript",
-                theme: "vs-dark",
+                theme: "dark",
             });
+            cachedEditor = editor;
             (async () => {
                 const reactDts = await fetch("https://unpkg.com/@types/react@16.9.52/index.d.ts");
                 const reactGlobalDts = await fetch("https://unpkg.com/@types/react@16.9.52/global.d.ts");
