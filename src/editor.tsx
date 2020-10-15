@@ -6,6 +6,7 @@ export async function startMonaco(
   { onChange, code },
 ) {
   const version = "0.21.2";
+  let monaco: monacoType;
 
   // await loadScript(
   //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
@@ -30,8 +31,6 @@ export async function startMonaco(
     const document = window.document;
     // @ts-ignore
     require(["vs/editor/editor.main"], async function () {
-      const monaco = (window as unknown as { monaco: monacoType }).monaco;
-
       try {
         console.log(":)");
       } catch (e) {

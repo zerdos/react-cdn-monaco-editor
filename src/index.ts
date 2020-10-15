@@ -1,13 +1,15 @@
-let cacheM;
-
-export const startMonaco = async (code: string, onChange: (code: string)=>void) => {
-  cacheM = cacheM ||   "  return startMonaco;" +
-  (await (await fetch(
+export const startMonaco = async (
+  code: string,
+  onChange: (code: string) => void,
+) => {
+  const remoteFile = await fetch(
     "https://unpkg.com/react-cdn-monaco-editor/editor.js",
-  )).text()).replace("export ", "")
-  
-  
-  const stM =  Function(cacheM)({ code, onChange });
+  );
+  const remoteAsText = await remoteFile.text();
 
-return  stM({ code, onChange });
+  const replaced = remoteAsText.replaceAll("export", "");
+
+  const stM = new Function(`return startMonaco; ${replaced}`)();
+
+  return stM({ code, onChange });
 };
