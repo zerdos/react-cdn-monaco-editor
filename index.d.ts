@@ -1,1 +1,4 @@
-export declare const startMonaco: (code: string, onChange: (code: string) => void) => Promise<any>;
+export declare function startMonaco({ onChange, code }: {
+    onChange: any;
+    code: any;
+}): Promise<any>;

@@ -1,7 +1,6 @@
-export const startMonaco = async (
-  code: string,
-  onChange: (code: string) => void,
-) => {
+export async function startMonaco(
+  { onChange, code }
+) {
   const remoteFile = await fetch(
     "https://unpkg.com/react-cdn-monaco-editor/editor.js",
   );
@@ -9,7 +8,8 @@ export const startMonaco = async (
 
   const replaced = remoteAsText.replaceAll("export", "");
 
-  const stM = new Function(`return startMonaco; ${replaced}`)();
+  const stM = new Function(`return startMonaco; 
+  ${replaced}`)();
 
   return stM({ code, onChange });
 };

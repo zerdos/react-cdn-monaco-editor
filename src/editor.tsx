@@ -5,7 +5,11 @@ type monacoType = typeof monaco;
 export async function startMonaco(
   { onChange, code },
 ) {
-  const version = "0.21.2";
+  
+  return new Promise( async function (resolve, reject) {
+
+
+    const version = "0.21.2";
 
   // await loadScript(
   //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
@@ -25,7 +29,7 @@ export async function startMonaco(
   // @ts-ignore
   require.config({ paths: { "vs": vsPath } });
 
-  return new Promise(function (resolve, reject) {
+
     // @ts-ignore
     const document = window.document;
     // @ts-ignore
