@@ -1,12 +1,11 @@
 import type monaco from "monaco-editor";
 
 type monacoType = typeof monaco;
-let cachedEditor: monaco.editor.IStandaloneCodeEditor = undefined;
 
 export async function startMonaco(
   { onChange, code },
 ) {
-  if (window["monaco"]) return cachedEditor;
+  if (window && window["monaco"] && window["monaco"]["editor"]) return window["monaco"]["editor"];
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
     async function (resolve, reject) {
       const version = "0.21.2";
@@ -64,8 +63,6 @@ export async function startMonaco(
             theme: "vs-dark",
           },
         );
-
-        cachedEditor = editor;
 
         (async () => {
           const reactDts = await fetch(

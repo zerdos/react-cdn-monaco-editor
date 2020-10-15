@@ -1,7 +1,6 @@
-let cachedEditor = undefined;
 export async function startMonaco({ onChange, code }) {
-    if (window["monaco"])
-        return cachedEditor;
+    if (window && window["monaco"] && window["monaco"]["editor"])
+        return window["monaco"]["editor"];
     return new Promise(async function (resolve, reject) {
         const version = "0.21.2";
         // await loadScript(
@@ -39,7 +38,6 @@ export async function startMonaco({ onChange, code }) {
                 language: "typescript",
                 theme: "vs-dark",
             });
-            cachedEditor = editor;
             (async () => {
                 const reactDts = await fetch("https://unpkg.com/@types/react@16.9.52/index.d.ts");
                 const reactGlobalDts = await fetch("https://unpkg.com/@types/react@16.9.52/global.d.ts");
