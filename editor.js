@@ -56,7 +56,6 @@ export async function startMonaco({ onChange, value }) {
         });
     });
 }
-;
 function loadScript(src) {
     return new Promise(function (resolve, reject) {
         var s;
