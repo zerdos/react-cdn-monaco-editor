@@ -8,11 +8,7 @@
 </head>
 <body>
 <script type="module">
-<<<<<<< HEAD
-   import {startMonaco} from "./lib/editor.js";
-=======
    import {startMonaco} from "./lib/index.js";
->>>>>>> 1fbc299de8b79f2f7c8f424b1f5ce23d809214d9
 
    const editor = () => {
 
@@ -21,37 +17,6 @@
         const once = async ()=>{
             // const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
   
-<<<<<<< HEAD
-           await startMonaco({code: `import React from "react";
-
-
-function App() {
-
-
-  const [code, changeCode] = React.useState("const foo = 42;");
-
-  return (
-    <div>
-      <button
-        onClick={() => {
-          changeCode("const bar = 'foo';");
-        }}
-      >
-        Reset
-      </button>
-      <pre>{code}</pre>
-    
-     <footer>the end</footer>
-    </div>
-  );
-}
-
-export default App;
-`, onChange: (code)=>console.log(code)});
-
-        }
-        once();
-=======
            await startMonaco({code: `const foo = 1;
 `, onChange: (code)=>console.log(code)});
 
@@ -60,7 +25,6 @@ export default App;
 
         once();
       // })
->>>>>>> 1fbc299de8b79f2f7c8f424b1f5ce23d809214d9
 
 
        return React.createElement("div", {onChange: (ch)=>console.log(ch), style: {height: "100vh", width:"50%"}, id: "container"})
