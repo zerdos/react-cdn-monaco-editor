@@ -1,3 +1,4 @@
+import React from "react";
 async function startMonaco({ onChange, value, language }) {
     const version = "0.21.2";
     // await loadScript(
@@ -67,46 +68,35 @@ function loadScript(src) {
         document.head.appendChild(s);
     });
 }
-export function getEditor({ createElement, useState, useEffect }) {
-    // const ReactTypeJs = DTSGen.generateIdentifierDeclarationFile("React", React);
-    // const dts = generateModuleDeclarationFile(React, "react");
-    // console.log(ReactTypeJs);
-    // const react = window.React as {
-    //   useState: <T>(state: T) => [T, (state: T) => void];
-    //   createElement: (el: string, props: unknown, children?: unknown) => unknown;
-    //   useEffect: (fn: () => unknown, debts: unknown[]) => unknown;
-    // };
-    const MonacoEditor = ({ width = "600px", height = "400px", value = "", language = "typescript", onChange, }) => {
-        const [editor, setEditor] = useState(null);
-        const [editorValue, setEditorValue] = useState(value);
-        useEffect(() => {
-            if (typeof window === "undefined")
-                return;
-            if (!editor) {
-                (async () => {
-                    try {
-                        const editor = await startMonaco({
-                            value,
-                            language,
-                            onChange: (code) => {
-                                setEditorValue(code);
-                                onChange(code);
-                            },
-                        });
-                        setEditor(editor);
-                    }
-                    catch (e) {
-                        console.log("Error attaching the editor", e);
-                    }
-                })();
-                return;
-            }
-            if (editorValue !== value) {
-                editor === null || editor === void 0 ? void 0 : editor.setValue(value);
-            }
-        }, [value, language]);
-        return createElement("div", { id: "container", style: { width, height } });
-    };
-    return MonacoEditor;
-}
+export const MonacoEditor = ({ width = "600px", height = "400px", value = "", language = "typescript", onChange, }) => {
+    const [editor, setEditor] = React.useState(null);
+    const [editorValue, setEditorValue] = React.useState(value);
+    React.useEffect(() => {
+        if (typeof window === "undefined")
+            return;
+        if (!editor) {
+            (async () => {
+                try {
+                    const editor = await startMonaco({
+                        value,
+                        language,
+                        onChange: (code) => {
+                            setEditorValue(code);
+                            onChange(code);
+                        },
+                    });
+                    setEditor(editor);
+                }
+                catch (e) {
+                    console.log("Error attaching the editor", e);
+                }
+            })();
+            return;
+        }
+        if (editorValue !== value) {
+            editor === null || editor === void 0 ? void 0 : editor.setValue(value);
+        }
+    }, [value, language]);
+    return React.createElement("div", { id: "container", style: { width, height } });
+};
 //# sourceMappingURL=editor.js.map
