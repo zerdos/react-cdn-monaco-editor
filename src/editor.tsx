@@ -41,6 +41,11 @@ export async function startMonaco(
       const editor = monaco.editor.create(
         document.getElementById("container"),
         {
+          model: monaco.editor.createModel(
+            code,
+            "typescript",
+            monaco.Uri.parse("file:///main.tsx"),
+          ),
           value: code,
           language: "typescript",
           theme: "vs-dark",
