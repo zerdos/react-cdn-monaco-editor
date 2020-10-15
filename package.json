@@ -5,7 +5,7 @@
   "main": "index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc && mv lib/* ./",
+    "build": "tsc && cp -f lib/* ./",
     "clean": "rimraf lib index.js",
     "format": "deno fmt srv",
     "prepublishOnly": "npm run build"
