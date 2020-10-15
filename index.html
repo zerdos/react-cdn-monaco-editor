@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <!-- <meta content="text/html;charset=utf-8" http-equiv="Content-Type"> -->
     <meta content="utf-8" http-equiv="encoding">        
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
@@ -8,31 +8,55 @@
 </head>
 <body>
 <script type="module">
+   import {startMonaco} from "./index.js";
+
+   const editor = () => {
+
+    // React.useEffect(()=>{
+
+        const once = async ()=>{
+            // const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("./lib/editor.js")).text()).replace("export ", ""))();
+  
+           await startMonaco({code: `import React from "react";
+
+
+function App() {
+
+
+  const [code, changeCode] = React.useState("const foo = 42;");
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          changeCode("const bar = 'foo';");
+        }}
+      >
+        Reset
+      </button>
+      <pre>{code}</pre>
     
+     <footer>the end</footer>
+    </div>
+  );
+}
 
-(async(React)=>{
+export default App;
+`, onChange: (code)=>console.log(code)});
+
+        }
+        once();
 
 
-    const getEdit = (await  (await fetch("editor.js")).text()) .replace("export function", "function");
+       return React.createElement("div", {onChange: (ch)=>console.log(ch), style: {height: "100vh", width:"50%"}, id: "container"})
+    
+    }
+ 
     const container = document.createElement("div")
-    const MonacoEditor = new Function(  "  return getEditor;" + getEdit)()();
-    
-    const editor = React.createElement(MonacoEditor, {onChange: (ch)=>console.log(ch), height: "100vh", width:"50%", value:`import React from "react";
-    const Hello = ({name}) =><h1>Hello {name}</h1>
 
-    
-    `}); 
+        ReactDOM.render(editor(), container);
 
-    ReactDOM.render(editor, container);
-    document.body.appendChild(container);
-
-
-
-})(React);
-
-
-
-
+        document.body.appendChild(container);
    
 </script>
 </body>
