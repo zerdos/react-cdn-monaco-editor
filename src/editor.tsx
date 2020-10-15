@@ -46,7 +46,6 @@ export async function startMonaco(
             "typescript",
             monaco.Uri.parse("file:///main.tsx"),
           ),
-          value: code,
           language: "typescript",
           theme: "vs-dark",
         },
