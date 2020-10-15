@@ -1,4 +1,4 @@
-cimport type monaco from "monaco-editor";
+import type monaco from "monaco-editor";
 
 type monacoType = typeof monaco;
 
