@@ -1,13 +1,53 @@
 import React from "react";
 import "./App.css";
 
-import { getEditor } from "react-cdn-monaco-editor";
+const MonacoEditor: React.FC<{code: string, onChange: (newcode: string)=>void}> = ({code, onChange}) => {
 
-const {useState, useEffect, createElement}  = React;
+  React.useEffect(()=>{
 
-const MonacoEditor = getEditor({useState, useEffect, createElement} ) as unknown as React.FC<{onChange: (code: string)=>void, value: string}>;
+      const once = async ()=>{
+
+        const getEdit =
+        (await (await fetch("https://unpkg.com/react-cdn-monaco-editor/editor.js"))
+          .text()).replace("export function", "function");
+                  const startMonaco = new Function(  "  return startMonaco;" + (await  (await fetch("https://unpkg.com/react-cdn-monaco-editor/editor.js")).text()).replace("export ", ""))();
+
+         await startMonaco({value: `import React from "react";
 
 
+function App() {
+
+
+const [code, changeCode] = React.useState("const foo = 42;");
+
+return (
+  <div>
+    <button
+      onClick={() => {
+        changeCode("const bar = 'foo';");
+      }}
+    >
+      Reset
+    </button>
+    <pre>{code}</pre>
+  
+   <footer>the end</footer>
+  </div>
+);
+}
+
+export default App;
+`
+, onChange: (code: string)=>console.log("code")});
+
+      }
+      once();
+
+    },[]);
+
+     return <div style ={{height: "100vh", width:"50%"}} id ="container"></div>
+  
+  }
 function App() {
 
 
@@ -26,7 +66,7 @@ function App() {
       </button>
       <pre>{code}</pre>
     
-     <MonacoEditor onChange={changeCode} value={code} />
+     <MonacoEditor onChange={changeCode} code={code} />
     </div>
   );
 }
