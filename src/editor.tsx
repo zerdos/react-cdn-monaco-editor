@@ -1,5 +1,6 @@
 import type monaco from "monaco-editor";
 
+
 type monacoType = typeof monaco;
 
 export async function startMonaco(
