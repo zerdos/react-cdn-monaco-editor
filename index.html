@@ -26,7 +26,7 @@ const Counter:FunctionComponent<{ initial?: number }> = ({ initial = 0 }) => {
    (async()=>{
        const editor = await startMonaco({code, onChange: (code)=>console.log(code)})
 console.log(editor);
-editor.setValue("const foo = 2");
+// editor.setValue("const foo = 2");
 })()
    
 </script>
