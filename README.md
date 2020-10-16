@@ -1,6 +1,6 @@
 
 
-[DEMO](https://zerrdos.github.io/react-cdn-monaco--editor) with react
+[DEMO](https://zerdos.github.io/react-cdn-monaco-editor/) 
 
 
 <h1 align="center">react-cdn-monaco-editor</h1>
