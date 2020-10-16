@@ -1,14 +1,16 @@
 export async function startMonaco({ onChange, code }) {
-    const version = "0.21.2";
-    // await loadScript(
-    //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
-    // );
-    await loadScript(`https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`);
-    const vsPath = `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs`;
-    await loadScript(`https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`);
-    // @ts-ignore
-    require.config({ paths: { "vs": vsPath } });
-    return new Promise(function (resolve, reject) {
+    if (window && window["monaco"] && window["monaco"]["editor"])
+        return window["monaco"]["editor"];
+    return new Promise(async function (resolve, reject) {
+        const version = "0.21.2";
+        // await loadScript(
+        //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
+        // );
+        await loadScript(`https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`);
+        const vsPath = `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs`;
+        await loadScript(`https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`);
+        // @ts-ignore
+        require.config({ paths: { "vs": vsPath } });
         // @ts-ignore
         const document = window.document;
         // @ts-ignore
@@ -21,6 +23,16 @@ export async function startMonaco({ onChange, code }) {
                 reject(e);
             }
             const editor = monaco.editor.create(document.getElementById("container"), {
+                formatOnType: true,
+                automaticLayout: true,
+                autoIndent: "full",
+                autoClosingQuotes: "always",
+                autoClosingBrackets: "always",
+                autoClosingOvertype: "always",
+                autoSurround: "brackets",
+                acceptSuggestionOnCommitCharacter: true,
+                trimAutoWhitespace: true,
+                codeActionsOnSaveTimeout: 100,
                 model: monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx")),
                 value: code,
                 language: "typescript",
@@ -39,6 +51,10 @@ export async function startMonaco({ onChange, code }) {
             monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
                 target: monaco.languages.typescript.ScriptTarget.ES2016,
                 allowNonTsExtensions: true,
+                allowUmdGlobalAccess: true,
+                strict: true,
+                allowJs: true,
+                allowSyntheticDefaultImports: true,
                 moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
                 module: monaco.languages.typescript.ModuleKind.CommonJS,
                 noEmit: true,
@@ -48,8 +64,8 @@ export async function startMonaco({ onChange, code }) {
                 esModuleInterop: true,
             });
             monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-                noSemanticValidation: true,
-                noSyntaxValidation: true,
+                noSemanticValidation: false,
+                noSyntaxValidation: false,
             });
             editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));
             resolve(editor);
