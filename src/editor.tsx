@@ -70,7 +70,10 @@ export async function startMonaco(
 
         (async () => {
           const reactDts = await fetch(
-            "https://unpkg.com/@types/react@16.9.52/index.d.ts",
+            "https://unpkg.com/@types/react@16.9.53/index.d.ts",
+          );
+          const reactDOMDts = await fetch(
+            "https://unpkg.com/@types/react-dom@16.9.8/index.d.ts",
           );
           const reactGlobalDts = await fetch(
             "https://unpkg.com/@types/react@16.9.52/global.d.ts",
@@ -100,6 +103,12 @@ export async function startMonaco(
           monaco.languages.typescript.typescriptDefaults.addExtraLib(
             await reactDts.text(),
             "file:///node_modules/@types/react/index.d.ts",
+          );
+
+
+          monaco.languages.typescript.typescriptDefaults.addExtraLib(
+            await reactDOMDts.text(),
+            "file:///node_modules/@types/react-dom/index.d.ts",
           );
         })();
 
