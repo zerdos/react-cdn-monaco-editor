@@ -1,28 +1,22 @@
 export function getCodeTemplate() {
-  return `import React from "react";
-
-
-function App() {
-
-
-const [code, changeCode] = React.useState("const foo = 42;");
-
-return (
-  <div>
-    <button
-      onClick={() => {
-        changeCode("const bar = 'foo';");
-      }}
-    >
-      Reset
-    </button>
-    <pre>{code}</pre>
+  return `import React, { FC, useState } from "react";
+  import ReactDOM from "react-dom";
   
-   <footer>the end</footer>
-  </div>
-);
-}
-
-export default App;
+  const Counter: FC<{ initial?: number }> = (
+    { initial = 0 },
+  ) => {
+    const [clicks, setClicks] = useState(initial);
+  
+    return <div>
+      <p>Clicks: {clicks}</p>
+      <button onClick={() => setClicks(clicks + 1)}>+</button>
+      <button onClick={() => setClicks(clicks - 1)}>-</button>
+    </div>;
+  };
+  
+  const rootElement = document.createElement("div");
+  
+  ReactDOM.render(<Counter initial={0} />, rootElement);
+  document.body.appendChild(rootElement);
 `;
 }

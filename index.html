@@ -19,10 +19,11 @@
 
   function getExampleCode(){
 
-    return `import React, { FC, useState } from 'react';
+    return `import React, { FC, useState } from "react";
+import ReactDOM from "react-dom";
 
 const Counter: FC<{ initial?: number }> = (
-  { initial = 0 }
+  { initial = 0 },
 ) => {
   const [clicks, setClicks] = useState(initial);
 
@@ -30,7 +31,13 @@ const Counter: FC<{ initial?: number }> = (
     <p>Clicks: {clicks}</p>
     <button onClick={() => setClicks(clicks + 1)}>+</button>
     <button onClick={() => setClicks(clicks - 1)}>-</button>
-  </div>
+  </div>;
+};
+
+const rootElement = document.createElement("div");
+
+ReactDOM.render(<Counter initial={0} />, rootElement);
+document.body.appendChild(rootElement);
 }`;
   }
 
