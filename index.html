@@ -6,28 +6,35 @@
 <body>
     <div id="container" style="display: block; height: 70vh; width: 100%;" ></div>
 <script type="module">
-   import {startMonaco} from "./lib/index.js";
-    
-   const code = `import React, { FunctionComponent, useState } from 'react';
 
-// our components props accept a number for the initial value
-const Counter:FunctionComponent<{ initial?: number }> = ({ initial = 0 }) => {
-  // since we pass a number here, clicks is going to be a number.
-  // setClicks is a function that accepts either a number or a function returning
-  // a number
-  const [clicks, setClicks] = useState(initial);
-  return <div>
-    <p>Clicks: {clicks}</p>
-    <button onClick={() => setClicks(clicks+1)}>+</button>
-    <button onClick={() => setClicks(clicks-1)}>-</button>
-  </div>
-}`;
+   import {startMonaco} from "./lib/index.js";
    
    (async()=>{
-       const editor = await startMonaco({code, onChange: (code)=>console.log(code)})
-console.log(editor);
-// editor.setValue("const foo = 2");
-})()
+        const example = getExampleCode();
+       const editor = await startMonaco({code: example, onChange: (code)=>console.log(code)})
+  })()
+
+
+
+
+  function getExampleCode(){
+
+    return `import React, { FC, useState } from 'react';
+
+const Counter: FC<{ initial?: number }> = (
+  { initial = 0 }
+) => {
+  const [clicks, setClicks] = useState(initial);
+
+  return <div>
+    <p>Clicks: {clicks}</p>
+    <button onClick={() => setClicks(clicks + 1)}>+</button>
+    <button onClick={() => setClicks(clicks - 1)}>-</button>
+  </div>
+}
+}`;
+  }
+
    
 </script>
 </body>
