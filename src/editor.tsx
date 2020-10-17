@@ -5,7 +5,11 @@ type monacoType = typeof monaco;
 export async function startMonaco(
   { onChange, code },
 ) {
-  if (window && window["monaco"] && window["monaco"]["editor"]) return window["monaco"]["editor"];
+  if (
+    window && window["monaco"] && window["monaco"]["editor"]
+  ) {
+    return window["monaco"]["editor"];
+  }
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
     async function (resolve, reject) {
       const version = "0.21.2";
@@ -47,7 +51,7 @@ export async function startMonaco(
             automaticLayout: true,
             autoIndent: "full",
             autoClosingQuotes: "always",
-            autoClosingBrackets:"always",
+            autoClosingBrackets: "always",
             autoClosingOvertype: "always",
             autoSurround: "brackets",
             acceptSuggestionOnCommitCharacter: true,
