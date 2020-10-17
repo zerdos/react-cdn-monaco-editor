@@ -24,10 +24,10 @@
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/zerdos/react-monaco-editor/issues"
+        "url": "https://github.com/zerdos/react-cdn-monaco-editor/issues"
     },
-    "homepage": "https://github.com/react-monaco-editor/react-monaco-editor",
-    "repository": "https://github.com/react-monaco-editor/react-monaco-editor",
+    "homepage": "https://github.com/zerdos/react-cdn-monaco-editor",
+    "repository": "https://github.com/zerdos/react-cdn-monaco-editor",
     "devDependencies": {
         "@types/react": "^16.9.52",
         "@types/webpack-env": "^1.15.3",
