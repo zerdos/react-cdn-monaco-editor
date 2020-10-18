@@ -1,6 +1,6 @@
 
 
-[DEMO - normal html file, without react or any build tool ](https://zerdos.github.io/react-cdn-monaco-editor/) 
+[DEMO - normal html file, without react or any build tool ![Screenshot](screenshot.png)](https://zerdos.github.io/react-cdn-monaco-editor/) 
 
 [DEMO - with react create app ](https://zerdos.github.io/react-cdn-monaco-editor/example/build/) 
 
