@@ -1,31 +1,95 @@
 <!DOCTYPE html>
+
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">        
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <script crossorigin src="https://unpkg.com/@babel/standalone@7.12.2/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <style>
+    body {
+      margin: auto;
+      background-color: cadetblue;
+      overflow: hidden;
+    }
+
+    #container {
+
+      float: left;
+      height: 100vh;
+      width: 768px;
+    }
+
+    #root {
+      display: inline-block;
+      font-size: larger;
+      height: 100vh;
+      padding: 30px;
+      text-align: center;
+      width: auto;
+     
+    }
+    #root>div{
+        background-color: white;
+        padding: 10px 20px 10px 20px;
+      }
+
+    @media only screen and (max-width: 1023px) {
+      #container {
+        height: 70vh;
+        width: 100%;
+      }
+
+      #root {
+        width: auto;
+        display: inline-block;
+
+      text-align: center;
+
+      display: inline-block;
+        height: 30vh;
+
+
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div id="container" style="display: block; height: 70vh; width: 100%;" ></div>
-<script type="module">
+  <div id="container"></div>
+  <div id="root"></div>
 
-   import {startMonaco} from "./lib/index.js";
-   
-   (async()=>{
-        const example = getExampleCode();
-       const editor = await startMonaco({code: example, onChange: (code)=>console.log(code)})
-  })()
+  <script type="module">
+    import { startMonaco } from "./lib/index.js";
+
+    const transpileCode = (code) => Babel.transform(code, {
+      plugins: [],
+      presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
+    }).code.replaceAll("import ", "////");
+
+    const restartCode = (transpileCode) => {
+      const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
+      restart();
+    }
 
 
+    (async () => {
+      const example = getExampleCode();
+      const editor = await startMonaco({ code: example, onChange: (code) => restartCode(transpileCode(code)) })
+    })();
+
+    restartCode(transpileCode(getExampleCode()))
 
 
-  function getExampleCode(){
+    function getExampleCode() {
 
-    return `import React, { FC, useState } from "react";
+      return `import React from "react";
 import ReactDOM from "react-dom";
 
-const Counter: FC<{ initial?: number }> = (
+const Counter: React.FC<{ initial?: number }> = (
   { initial = 0 },
 ) => {
-  const [clicks, setClicks] = useState(initial);
+  const [clicks, setClicks] = React.useState(initial);
 
   return <div>
     <p>Clicks: {clicks}</p>
@@ -34,13 +98,12 @@ const Counter: FC<{ initial?: number }> = (
   </div>;
 };
 
-const rootElement = document.createElement("div");
+const rootEl = document.getElementById("root");
+ReactDOM.render(<Counter initial={0} />, rootEl);
 
-ReactDOM.render(<Counter initial={0} />, rootElement);
-document.body.appendChild(rootElement);
-}`;
-  }
+`;
+    }
 
-   
-</script>
+
+  </script>
 </body>
