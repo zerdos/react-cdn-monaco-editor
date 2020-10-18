@@ -3,8 +3,9 @@ import type monaco from "monaco-editor";
 type monacoType = typeof monaco;
 
 export async function startMonaco(
-  { onChange, code },
+  { onChange, code, language },
 ) {
+  const monacoLang = language || "typescript";
   if (
     window && window["monaco"] && window["monaco"]["editor"]
   ) {
@@ -59,16 +60,20 @@ export async function startMonaco(
             codeActionsOnSaveTimeout: 100,
             model: monaco.editor.createModel(
               code,
-              "typescript",
-              monaco.Uri.parse("file:///main.tsx"),
+              monacoLang,
+              monaco.Uri.parse(
+                monacoLang === "typescript"
+                  ? "file:///main.tsx"
+                  : "file:///main.html",
+              ),
             ),
             value: code,
-            language: "typescript",
+            language: monacoLang,
             theme: "vs-dark",
           },
         );
 
-        (async () => {
+        monacoLang !== "html" && (async () => {
           const reactDts = await fetch(
             "https://unpkg.com/@types/react@16.9.53/index.d.ts",
           );
@@ -105,35 +110,36 @@ export async function startMonaco(
             "file:///node_modules/@types/react/index.d.ts",
           );
 
-
           monaco.languages.typescript.typescriptDefaults.addExtraLib(
             await reactDOMDts.text(),
             "file:///node_modules/@types/react-dom/index.d.ts",
           );
         })();
 
-        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-          target: monaco.languages.typescript.ScriptTarget.ES2016,
-          allowNonTsExtensions: true,
-          allowUmdGlobalAccess: true,
-          strict: true,
-          allowJs: true,
-          allowSyntheticDefaultImports: true,
-          moduleResolution:
-            monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-          module: monaco.languages.typescript.ModuleKind.CommonJS,
-          noEmit: true,
-          typeRoots: ["node_modules/@types"],
-          jsx: monaco.languages.typescript.JsxEmit.React,
-          jsxFactory: "React.createElement",
+        if (monacoLang !== "typescript") {
+          monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+            target: monaco.languages.typescript.ScriptTarget.ES2016,
+            allowNonTsExtensions: true,
+            allowUmdGlobalAccess: true,
+            strict: true,
+            allowJs: true,
+            allowSyntheticDefaultImports: true,
+            moduleResolution:
+              monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+            module: monaco.languages.typescript.ModuleKind.CommonJS,
+            noEmit: true,
+            typeRoots: ["node_modules/@types"],
+            jsx: monaco.languages.typescript.JsxEmit.React,
+            jsxFactory: "React.createElement",
 
-          esModuleInterop: true,
-        });
+            esModuleInterop: true,
+          });
 
-        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-        });
+          monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+            noSemanticValidation: false,
+            noSyntaxValidation: false,
+          });
+        }
 
         editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));
         resolve(editor);
