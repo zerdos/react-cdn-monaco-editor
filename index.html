@@ -14,25 +14,47 @@
     }
 
     #container {
-
+      background-color: #1E1E1E;
       float: left;
       height: 100vh;
       width: 768px;
+      animation-duration: 1s;
+      animation-name: opening;
     }
+
+    @keyframes opening {
+      from {
+        width: 20px;
+        height: 20vh;
+      }
+
+      66% {
+        width: 768px;
+        height: 20vh;
+      }
+
+      to {
+        width: 768px;
+        height: 100vh;
+      }
+    }
+
 
     #root {
       display: inline-block;
       font-size: larger;
+
       height: 100vh;
       padding: 30px;
       text-align: center;
       width: auto;
-     
+
     }
-    #root>div{
-        background-color: white;
-        padding: 10px 20px 10px 20px;
-      }
+
+    #root>div {
+      background-color: white;
+      padding: 10px 20px 10px 20px;
+    }
 
     @media only screen and (max-width: 1023px) {
       #container {
@@ -44,9 +66,9 @@
         width: auto;
         display: inline-block;
 
-      text-align: center;
+        text-align: center;
 
-      display: inline-block;
+        display: inline-block;
         height: 30vh;
 
 
