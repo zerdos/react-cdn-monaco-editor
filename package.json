@@ -1,6 +1,6 @@
 {
     "name": "react-cdn-monaco-editor",
-    "version": "1.9.99",
+    "version": "2.0.0",
     "description": "Monaco Editor for React",
     "main": "index.js",
     "sideEffects": false,

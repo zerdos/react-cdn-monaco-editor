@@ -1,23 +1,21 @@
 import React from "react";
+import logo from "./logo.svg";
 import "./App.css";
-import { getCodeTemplate } from "./getCodeTemplate";
 import { MonacoEditor } from "./MonacoEditor";
+import { getCodeTemplate } from "./getCodeTemplate";
 
 function App() {
   const [code, changeCode] = React.useState(getCodeTemplate());
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          changeCode("const bar = 'foo';");
-        }}
-      >
-        Reset
-      </button>
-      <pre>{code}</pre>
-
-      <MonacoEditor onChange={changeCode} code={code} />
+    <div className="App">
+      <header className="App-header">
+        <div className="App-logo">
+          <img src={logo} alt="logo" />
+          <MonacoEditor onChange={changeCode} code={code} />
+        </div>
+      </header>
+      <footer dangerouslySetInnerHTML={{ __html: code }}></footer>
     </div>
   );
 }

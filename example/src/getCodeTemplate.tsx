@@ -1,22 +1,45 @@
 export function getCodeTemplate() {
-  return `import React, { FC, useState } from "react";
-  import ReactDOM from "react-dom";
+  return `
   
-  const Counter: FC<{ initial?: number }> = (
-    { initial = 0 },
-  ) => {
-    const [clicks, setClicks] = useState(initial);
+<h1>Hello to anyone who reads this.</h1>
+
+
+
+
+
+
+<p>Have a nice day;)</p>
   
-    return <div>
-      <p>Clicks: {clicks}</p>
-      <button onClick={() => setClicks(clicks + 1)}>+</button>
-      <button onClick={() => setClicks(clicks - 1)}>-</button>
-    </div>;
-  };
-  
-  const rootElement = document.createElement("div");
-  
-  ReactDOM.render(<Counter initial={0} />, rootElement);
-  document.body.appendChild(rootElement);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- And now please stop the procrastination and work -->
 `;
 }
