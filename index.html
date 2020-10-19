@@ -84,10 +84,12 @@
   <script type="module">
     import { startMonaco } from "./lib/index.js";
 
+    const searchRegExp = /import/gi;
+    const replaceWith = '///';
     const transpileCode = (code) => Babel.transform(code, {
       plugins: [],
       presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
-    }).code.replaceAll("import ", "////");
+    }).code.replace(searchRegExp, replaceWith);
 
     const restartCode = (transpileCode) => {
       const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
@@ -97,7 +99,7 @@
 
     (async () => {
       const example = getExampleCode();
-      const editor = await startMonaco({ code: example, onChange: (code) => restartCode(transpileCode(code)) })
+      const editor = await startMonaco({language:"typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
     })();
 
     restartCode(transpileCode(getExampleCode()))
