@@ -73,7 +73,7 @@ export async function startMonaco(
           },
         );
 
-        monacoLang !== "html" && (async () => {
+        if(monacoLang !== "html") {(async () => {
           const reactDts = await fetch(
             "https://unpkg.com/@types/react@16.9.53/index.d.ts",
           );
@@ -114,9 +114,9 @@ export async function startMonaco(
             await reactDOMDts.text(),
             "file:///node_modules/@types/react-dom/index.d.ts",
           );
-        })();
+        })();}
 
-        if (monacoLang !== "typescript") {
+        if (monacoLang == "typescript") {
           monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
             target: monaco.languages.typescript.ScriptTarget.ES2016,
             allowNonTsExtensions: true,
