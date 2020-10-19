@@ -20,11 +20,25 @@ export const example = `<!DOCTYPE html>
 
   <script type="text/jsx">
 
-    const Hello = ({name}) => <h1>Hello {name}</h1>;
+    const Hello = ({name}) => {
+      const [counter, setCounter] = React.useState(0);
+     
+      React.useEffect(()=>{
+        const cl =setInterval(()=>setCounter(x=>x+1), 1000);
+        
+        return ()=>clearInterval(cl);
+      },[]);
+
+      return <>
+        <h1>Hello {name}</h1>
+        <p>{counter}</p>
+      </>
+    }
     ReactDOM.render(<Hello name="React"/>, document.getElementById("output"))
 
 </script>
 </body>
 <html>
+
 
 `
