@@ -8,7 +8,7 @@
         "build": "tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && cp -f lib/* ./",
         "clean": "rimraf lib index.js",
         "format": "deno fmt srv",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build && git add . && git commit -m prepublish && git push"
     },
     "keywords": [
         "monaco",
