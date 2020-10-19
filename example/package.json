@@ -12,7 +12,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "react": "^16.14.0",
-    "react-cdn-monaco-editor": "1.8.5",
+    "react-cdn-monaco-editor": "latest",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
     "typescript": "~4.0.3"
