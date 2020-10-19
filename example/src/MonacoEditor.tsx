@@ -5,7 +5,7 @@ export const MonacoEditor: React.FC<
   { code: string; onChange: (code: string) => void }
 > = ({ code, onChange }) => {
   React.useEffect(() => {
-    startMonaco({ code, onChange });
+    startMonaco({ language: "typescript",code, onChange });
   });
 
   return <div style={{ height: "100vh", width: "50%" }} id="container" />;

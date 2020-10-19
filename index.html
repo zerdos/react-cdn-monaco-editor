@@ -97,7 +97,7 @@
 
     (async () => {
       const example = getExampleCode();
-      const editor = await startMonaco({ code: example, onChange: (code) => restartCode(transpileCode(code)) })
+      const editor = await startMonaco({language:"typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
     })();
 
     restartCode(transpileCode(getExampleCode()))
