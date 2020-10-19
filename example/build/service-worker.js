@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-cdn-monaco-editor/example/build/precache-manifest.1e4b193facb23459be9d4ca3f046ecb1.js"
+  "/react-cdn-monaco-editor/example/build/precache-manifest.236fbf747d43295f9301158374f01a03.js"
 );
 
 self.addEventListener('message', (event) => {
