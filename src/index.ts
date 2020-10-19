@@ -8,7 +8,9 @@ export async function startMonaco(
   );
   const remoteAsText = await remoteFile.text();
 
-  const replaced = remoteAsText.replaceAll("export", "");
+  const searchRegExp = /export/gi;
+  const replaceWith = "///";
+  const replaced = remoteAsText.replace(searchRegExp, replaceWith);
 
   const stM: typeof StartMonaco = new Function(`return startMonaco; 
   ${replaced}`)();
