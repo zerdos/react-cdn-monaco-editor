@@ -14,65 +14,51 @@
     }
 
     #container {
+      position: relative;
+      display: block;
       background-color: #1E1E1E;
       float: left;
       height: 100vh;
-      width: 768px;
+      width: 100%;
       animation-duration: 1s;
       animation-name: opening;
     }
 
     @keyframes opening {
       from {
-        width: 20px;
+        width: 10%;
         height: 20vh;
       }
 
       66% {
-        width: 768px;
+        width: 100%;
         height: 20vh;
       }
 
       to {
-        width: 768px;
+        width: 100%;
         height: 100vh;
       }
     }
 
+    #rootContainer {
+      position: absp;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
 
     #root {
-      display: inline-block;
-      font-size: larger;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      border: 3px solid #666;
+      background-color: #ddd;
+      border-radius: .5em;
+      padding: 10px;
+      cursor: move;
 
-      height: 100vh;
-      padding: 30px;
-      text-align: center;
-      width: auto;
-
-    }
-
-    #root>div {
-      background-color: white;
-      padding: 10px 20px 10px 20px;
-    }
-
-    @media only screen and (max-width: 800px) {
-      #container {
-        height: 70vh;
-        width: 100%;
-      }
-
-      #root {
-        width: auto;
-        display: inline-block;
-
-        text-align: center;
-
-        display: inline-block;
-        height: 30vh;
-
-
-      }
     }
   </style>
 </head>
@@ -80,6 +66,7 @@
 <body>
   <div id="container"></div>
   <div id="root"></div>
+
 
   <script type="module">
     import { startMonaco } from "./lib/index.js";
@@ -99,11 +86,11 @@
 
     (async () => {
       const example = getExampleCode();
-      const editor = await startMonaco({language:"typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
+      const editor = await startMonaco({ language: "typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
     })();
 
     restartCode(transpileCode(getExampleCode()))
-
+    dragElement(document.getElementById("root"));
 
     function getExampleCode() {
 
@@ -128,6 +115,47 @@ ReactDOM.render(<Counter initial={0} />, rootEl);
 `;
     }
 
+
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+      } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.right = (elmnt.offsetRight - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
 
   </script>
 </body>
