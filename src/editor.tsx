@@ -92,19 +92,19 @@ export async function startMonaco(
         if (monacoLang !== "html") {
           (async () => {
             const reactDts = await fetch(
-              "https://unpkg.com/@types/react@16.9.53/index.d.ts",
+              "https://unpkg.com/@types/react@latest/index.d.ts",
             );
             const reactDOMDts = await fetch(
-              "https://unpkg.com/@types/react-dom@16.9.8/index.d.ts",
+              "https://unpkg.com/@types/react-dom@latest/index.d.ts",
             );
             const reactGlobalDts = await fetch(
-              "https://unpkg.com/@types/react@16.9.52/global.d.ts",
+              "https://unpkg.com/@types/react@latest/global.d.ts",
             );
             const propTypesDTS = await fetch(
-              "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
+              "https://unpkg.com/@types/prop-types@latest/index.d.ts",
             );
             const cssTypeDts = await fetch(
-              "https://unpkg.com/csstype@3.0.3/index.d.ts",
+              "https://unpkg.com/csstype@latest/index.d.ts",
             );
 
             monaco.languages.typescript.typescriptDefaults.addExtraLib(
