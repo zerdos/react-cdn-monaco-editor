@@ -2,6 +2,7 @@
 
 <head>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width,user-scalable=no">
   <meta content="utf-8" http-equiv="encoding">
   <script crossorigin src="https://unpkg.com/@babel/standalone@7.12.2/babel.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
@@ -13,6 +14,14 @@
       width: 100vw;
       height: 100vh;
       /* --webkit-overflow-scrolling: touch;  */
+    }
+
+    img~.content {
+      display: none;
+    }
+
+    img:hover~.content {
+      display: block;
     }
 
     #container {
@@ -43,22 +52,21 @@
       }
     }
 
-    #rootContainer {
-      position: absp;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-    }
-
 
     #root {
       position: fixed;
       top: 24px;
+      touch-action: none;
+      user-select: none;
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px);
       font-size: 32px;
       line-height: 16px;
       right: 24px;
       background-color: #ddd;
       border-radius: 16px;
+      /* min-height: 300px; */
+      /* min-width: 400px; */
       padding: 16px;
       cursor: move;
       background: #ddd;
@@ -70,7 +78,8 @@
         0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 100px 80px rgba(0, 0, 0, 0.12);
     }
-    button{
+
+    button {
       font-size: large;
     }
   </style>
@@ -83,6 +92,9 @@
 
   <script type="module">
     import { startMonaco } from "./lib/index.js";
+
+
+
 
     const searchRegExp = /import/gi;
     const replaceWith = '///';
@@ -100,10 +112,56 @@
     (async () => {
       const example = getExampleCode();
       const editor = await startMonaco({ language: "typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
+      await mageDraggable()
     })();
 
+    const mageDraggable = async () => {
+      const interact = (await import('https://cdn.jsdelivr.net/npm/@interactjs/interactjs/index.js')).default;
+      // target elements with the "draggable" class
+      interact('#root')
+        .draggable({
+          // enable inertial throwing
+          inertia: true,
+          // keep the element within the area of it's parent
+          modifiers: [
+            interact.modifiers.restrictRect({
+              restriction: 'parent',
+              endOnly: true
+            })
+          ],
+          // enable autoScroll
+          autoScroll: true,
+
+          listeners: {
+            // call this function on every dragmove event
+            move: dragMoveListener
+
+          }
+        })
+
+      function dragMoveListener(event) {
+        var target = event.target
+        // keep the dragged position in the data-x/data-y attributes
+        var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+        var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)'
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x)
+        target.setAttribute('data-y', y)
+      }
+
+      // this function is used later in the resizing and gesture demos
+      window.dragMoveListener = dragMoveListener
+
+    }
+
     restartCode(transpileCode(getExampleCode()))
-    dragElement(document.getElementById("root"));
+    // dragElement(document.getElementById("root"));
 
     function getExampleCode() {
 
@@ -129,52 +187,8 @@ ReactDOM.render(<Counter initial={0} />, rootEl);
     }
 
 
-    function dragElement(elmnt) {
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      if (document.getElementById(elmnt.id + "header")) {
-        // if present, the header is where you move the DIV from:
-        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-        document.getElementById(elmnt.id + "header").ontouchstart = dragMouseDown;
-      } else {
-        // otherwise, move the DIV from anywhere inside the DIV:
-        elmnt.onmousedown = dragMouseDown;
-        elmnt.ontouchstart = dragMouseDown;
-      }
 
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.ontouchend = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-        document.ontouchmove = elementDrag;
-      }
 
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.right = (elmnt.offsetRight - pos1) + "px";
-      }
-
-      function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.ontouchend = null;
-        document.ontouchstart = null;
-        document.onmousemove = null;
-      }
-    }
 
   </script>
 </body>
