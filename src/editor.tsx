@@ -49,9 +49,12 @@ export async function startMonaco(
           document.getElementById("container"),
           {
             formatOnType: true,
+            //       glyphMargin: true,
             automaticLayout: true,
+            scrollBeyondLastLine: false,
             autoIndent: "full",
             autoClosingQuotes: "always",
+            lineNumbers: "off",
             autoClosingBrackets: "always",
             autoClosingOvertype: "always",
             autoSurround: "brackets",
@@ -72,6 +75,17 @@ export async function startMonaco(
             theme: "vs-dark",
           },
         );
+
+        // editor.deltaDecorations([], [
+        //   {
+        //     range: new monaco.Range(3, 1, 3, 1),
+        //     options: {
+        //       isWholeLine: true,
+        //       className: "myContentClass",
+        //       glyphMarginClassName: "myGlyphMarginClass",
+        //     },
+        //   },
+        // ]);
 
         if (monacoLang !== "html") {
           (async () => {

@@ -24,6 +24,16 @@
       display: block;
     }
 
+
+    .myGlyphMarginClass {
+      background: red;
+    }
+
+    .myContentClass {
+      background: lightblue;
+    }
+
+
     #container {
       position: relative;
       display: block;
@@ -50,6 +60,34 @@
         width: 100%;
         height: 100vh;
       }
+    }
+
+
+    #error {
+      display: none;
+      position: fixed;
+      top: 24px;
+      touch-action: none;
+      user-select: none;
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px);
+      font-size: 32px;
+      line-height: 16px;
+      right: 24px;
+      background-color:red;
+      border-radius: 16px;
+      min-height: 300px;
+      min-width: 400px;
+      padding: 16px;
+      cursor: move;
+      background: red;
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12);
     }
 
 
@@ -88,16 +126,20 @@
 <body>
   <div id="container"></div>
   <div id="root"></div>
+  <div id="error"></div>
 
 
   <script type="module">
-    import { startMonaco } from "./lib/index.js";
+    import { startMonaco } from "./lib/editor.js";
 
 
 
 
     const searchRegExp = /import/gi;
     const replaceWith = '///';
+
+
+
     const transpileCode = (code) => Babel.transform(code, {
       plugins: [],
       presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
@@ -107,11 +149,56 @@
       const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
       restart();
     }
+    let keystrokeTillNoError =0;
+  
+
 
 
     (async () => {
       const example = getExampleCode();
-      const editor = await startMonaco({ language: "typescript", code: example, onChange: (code) => restartCode(transpileCode(code)) })
+      const editor = await startMonaco({
+        language: "typescript", code: example, onChange: (code) => {
+
+
+
+          (async () => {
+            const err = await getErrors();
+            const errorDiv = document.getElementById("error");
+            try {
+
+              if (err.length) {
+                const errors = err.map(x=>x.messageText).join("<br />");
+                errorDiv.innerHTML = errors;
+                errorDiv.style.display = "block";
+      
+                monaco.editor.setTheme("vs-light");
+              setTimeout(() => {
+                monaco.editor.setTheme("hc-black");
+              }, keystrokeTillNoError++);
+      
+                console.error(err)
+                return;
+              }
+
+              errorDiv.style.display = "none";
+              monaco.editor.setTheme("vs-dark");
+              keystrokeTillNoError=0;
+
+
+
+              restartCode(transpileCode(code));
+
+            } catch (err) {
+                monaco.editor.setTheme("vs-light");
+              setTimeout(() => {
+                monaco.editor.setTheme("hc-black");
+              }, 10);
+              console.error(err)
+            }
+          })()
+
+        }
+      })
       await mageDraggable()
     })();
 
@@ -163,31 +250,53 @@
     restartCode(transpileCode(getExampleCode()))
     // dragElement(document.getElementById("root"));
 
+ 
+
+
+    async function getErrors() {
+      const model = monaco.editor.getModel("file:///main.tsx");
+
+      const tsWorker = await window["monaco"].languages.typescript
+        .getTypeScriptWorker();
+      const modelUri = model?.uri;
+      if (!modelUri) return;
+
+      const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
+        "file:///main.tsx",
+      );
+      const comp = await (await tsWorker(modelUri))
+        .getCompilerOptionsDiagnostics("file:///main.tsx");
+      const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
+        "file:///main.tsx",
+      );
+
+      return [...diag, ...comp, ...syntax];
+    }
+
+
+
     function getExampleCode() {
 
-      return `import React from "react";
+return `import React from "react";
 import ReactDOM from "react-dom";
 
 const Counter: React.FC<{ initial?: number }> = (
-  { initial = 0 },
+    { initial = 0 },
 ) => {
-  const [clicks, setClicks] = React.useState(initial);
+    const [clicks, setClicks] = React.useState(initial);
 
-  return <div>
-    <p>Clicks: <strong>{clicks}</strong></p>
-    <button onClick={() => setClicks(clicks + 1)}>+</button>
-    <button onClick={() => setClicks(clicks - 1)}>-</button>
-  </div>;
+    return <div>
+        <p>Clicks: <strong>{clicks}</strong></p>
+        <button onClick={() => setClicks(clicks + 1)}>+</button>
+        <button onClick={() => setClicks(clicks - 1)}>-</button>
+    </div>;
 };
 
 const rootEl = document.getElementById("root");
 ReactDOM.render(<Counter initial={0} />, rootEl);
 
 `;
-    }
-
-
-
+}
 
 
   </script>
