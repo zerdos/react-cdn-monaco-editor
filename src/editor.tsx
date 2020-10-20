@@ -57,6 +57,8 @@ export async function startMonaco(
             lineNumbers: "off",
             autoClosingBrackets: "always",
             autoClosingOvertype: "always",
+            
+            codeLens: true;
             autoSurround: "brackets",
             acceptSuggestionOnCommitCharacter: true,
             trimAutoWhitespace: true,
