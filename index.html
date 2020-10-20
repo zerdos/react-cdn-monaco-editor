@@ -8,9 +8,11 @@
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
   <style>
     body {
+      position: fixed;
       margin: auto;
-      background-color: cadetblue;
-      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      /* --webkit-overflow-scrolling: touch;  */
     }
 
     #container {
@@ -121,9 +123,11 @@ ReactDOM.render(<Counter initial={0} />, rootEl);
       if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id + "header").ontouchstart = dragMouseDown;
       } else {
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
+        elmnt.ontouchstart = dragMouseDown;
       }
 
       function dragMouseDown(e) {
@@ -133,8 +137,10 @@ ReactDOM.render(<Counter initial={0} />, rootEl);
         pos3 = e.clientX;
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
+        document.ontouchend= closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
+        document.ontouchmove = elementDrag;
       }
 
       function elementDrag(e) {
@@ -153,6 +159,8 @@ ReactDOM.render(<Counter initial={0} />, rootEl);
       function closeDragElement() {
         // stop moving when mouse button is released:
         document.onmouseup = null;
+        document.ontouchend = null;
+        document.ontouchstart = null;
         document.onmousemove = null;
       }
     }
