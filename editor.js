@@ -70,13 +70,14 @@ export async function startMonaco({ onChange, code, language }) {
                     monaco.languages.typescript.typescriptDefaults.addExtraLib(await reactDOMDts.text(), "file:///node_modules/@types/react-dom/index.d.ts");
                 })();
             }
-            if (monacoLang == "typescript") {
+            if (monacoLang === "typescript") {
                 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-                    target: monaco.languages.typescript.ScriptTarget.ES2016,
+                    target: monaco.languages.typescript.ScriptTarget.ESNext,
                     allowNonTsExtensions: true,
                     allowUmdGlobalAccess: true,
                     strict: true,
                     allowJs: true,
+                    noEmitOnError: true,
                     allowSyntheticDefaultImports: true,
                     moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
                     module: monaco.languages.typescript.ModuleKind.CommonJS,
@@ -84,6 +85,7 @@ export async function startMonaco({ onChange, code, language }) {
                     typeRoots: ["node_modules/@types"],
                     jsx: monaco.languages.typescript.JsxEmit.React,
                     jsxFactory: "React.createElement",
+                    jsxFragmentFactory: "React.Fragment",
                     esModuleInterop: true,
                 });
                 monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({

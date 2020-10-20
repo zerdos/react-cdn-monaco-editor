@@ -134,13 +134,14 @@ export async function startMonaco(
           })();
         }
 
-        if (monacoLang == "typescript") {
+        if (monacoLang === "typescript") {
           monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: monaco.languages.typescript.ScriptTarget.ES2016,
+            target: monaco.languages.typescript.ScriptTarget.ESNext,
             allowNonTsExtensions: true,
             allowUmdGlobalAccess: true,
             strict: true,
             allowJs: true,
+            noEmitOnError: true,
             allowSyntheticDefaultImports: true,
             moduleResolution:
               monaco.languages.typescript.ModuleResolutionKind.NodeJs,
@@ -149,6 +150,7 @@ export async function startMonaco(
             typeRoots: ["node_modules/@types"],
             jsx: monaco.languages.typescript.JsxEmit.React,
             jsxFactory: "React.createElement",
+            jsxFragmentFactory: "React.Fragment",
 
             esModuleInterop: true,
           });
