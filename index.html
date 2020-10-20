@@ -72,9 +72,9 @@
       -webkit-transform: translate(0px, 0px);
       transform: translate(0px, 0px);
       font-size: 32px;
-      line-height: 16px;
+      line-height: 42px;
       right: 24px;
-      background-color:red;
+      background-color: red;
       border-radius: 16px;
       min-height: 300px;
       min-width: 400px;
@@ -149,8 +149,8 @@
       const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
       restart();
     }
-    let keystrokeTillNoError =0;
-  
+    let keystrokeTillNoError = 0;
+
 
 
 
@@ -167,29 +167,29 @@
             try {
 
               if (err.length) {
-                const errors = err.map(x=>x.messageText).join("<br />");
+                const errors = err.map(x => x.messageText).join("<br />");
                 errorDiv.innerHTML = errors;
                 errorDiv.style.display = "block";
-      
+
                 monaco.editor.setTheme("vs-light");
-              setTimeout(() => {
-                monaco.editor.setTheme("hc-black");
-              }, keystrokeTillNoError++);
-      
+                setTimeout(() => {
+                  monaco.editor.setTheme("hc-black");
+                }, keystrokeTillNoError++);
+
                 console.error(err)
                 return;
               }
 
               errorDiv.style.display = "none";
               monaco.editor.setTheme("vs-dark");
-              keystrokeTillNoError=0;
+              keystrokeTillNoError = 0;
 
 
 
               restartCode(transpileCode(code));
 
             } catch (err) {
-                monaco.editor.setTheme("vs-light");
+              monaco.editor.setTheme("vs-light");
               setTimeout(() => {
                 monaco.editor.setTheme("hc-black");
               }, 10);
@@ -250,7 +250,7 @@
     restartCode(transpileCode(getExampleCode()))
     // dragElement(document.getElementById("root"));
 
- 
+
 
 
     async function getErrors() {
@@ -277,7 +277,7 @@
 
     function getExampleCode() {
 
-return `import React from "react";
+      return `import React from "react";
 import ReactDOM from "react-dom";
 
 const Counter: React.FC<{ initial?: number }> = (
@@ -296,7 +296,7 @@ const rootEl = document.getElementById("root");
 ReactDOM.render(<Counter initial={0} />, rootEl);
 
 `;
-}
+    }
 
 
   </script>
