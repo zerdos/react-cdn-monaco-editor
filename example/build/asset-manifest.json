@@ -5,18 +5,18 @@
     "main.js.map": "/react-cdn-monaco-editor/example/build/static/js/main.fb8678e1.chunk.js.map",
     "runtime-main.js": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js",
     "runtime-main.js.map": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js.map",
-    "static/js/2.bf1400e3.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.bf1400e3.chunk.js",
-    "static/js/2.bf1400e3.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.bf1400e3.chunk.js.map",
+    "static/js/2.5305950c.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.5305950c.chunk.js",
+    "static/js/2.5305950c.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.5305950c.chunk.js.map",
     "index.html": "/react-cdn-monaco-editor/example/build/index.html",
-    "precache-manifest.c70c0be37786d0f599596222f443ef0c.js": "/react-cdn-monaco-editor/example/build/precache-manifest.c70c0be37786d0f599596222f443ef0c.js",
+    "precache-manifest.4d2cd518b860fad651bfb840519975d9.js": "/react-cdn-monaco-editor/example/build/precache-manifest.4d2cd518b860fad651bfb840519975d9.js",
     "service-worker.js": "/react-cdn-monaco-editor/example/build/service-worker.js",
     "static/css/main.88fbda7c.chunk.css.map": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css.map",
-    "static/js/2.bf1400e3.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.bf1400e3.chunk.js.LICENSE.txt",
+    "static/js/2.5305950c.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.5305950c.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/react-cdn-monaco-editor/example/build/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.6c9051da.js",
-    "static/js/2.bf1400e3.chunk.js",
+    "static/js/2.5305950c.chunk.js",
     "static/css/main.88fbda7c.chunk.css",
     "static/js/main.fb8678e1.chunk.js"
   ]
