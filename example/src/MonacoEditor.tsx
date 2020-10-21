@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { startMonaco } from "react-cdn-monaco-editor";
 
 export const MonacoEditor: React.FC<

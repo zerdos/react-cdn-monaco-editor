@@ -27,6 +27,7 @@
 
     .myGlyphMarginClass {
       background: red;
+    
     }
 
     .myContentClass {
@@ -75,6 +76,7 @@
       line-height: 42px;
       right: 24px;
       background-color: red;
+      opacity: 0.7;
       border-radius: 16px;
       min-height: 300px;
       min-width: 400px;
@@ -277,11 +279,11 @@
 
     function getExampleCode() {
 
-      return `import React from "react";
+      return `import * as React from "react";
 import ReactDOM from "react-dom";
 
-const Counter: React.FC<{ initial?: number }> = (
-    { initial = 0 },
+const Counter = (
+    { initial = 0 }
 ) => {
     const [clicks, setClicks] = React.useState(initial);
 
@@ -292,9 +294,10 @@ const Counter: React.FC<{ initial?: number }> = (
     </div>;
 };
 
-const rootEl = document.getElementById("root");
-ReactDOM.render(<Counter initial={0} />, rootEl);
-
+ReactDOM.render(
+    <Counter initial={0} />,
+    document.getElementById("root")
+);
 `;
     }
 

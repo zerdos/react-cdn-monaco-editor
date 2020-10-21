@@ -48,6 +48,7 @@ export async function startMonaco(
         const editor = monaco.editor.create(
           document.getElementById("container"),
           {
+            cursorStyle: "block",
             formatOnType: true,
             //       glyphMargin: true,
             automaticLayout: true,
