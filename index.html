@@ -27,7 +27,7 @@
 
     .myGlyphMarginClass {
       background: red;
-    
+
     }
 
     .myContentClass {
@@ -157,18 +157,23 @@
 
 
     (async () => {
+      let busy=0;
+      let latestCode=""
       const example = getExampleCode();
       const editor = await startMonaco({
         language: "typescript", code: example, onChange: (code) => {
+          latestCode = code;
 
 
 
-          (async () => {
+          const runner = async (cd) => {
+            busy = 1;
             const err = await getErrors();
             const errorDiv = document.getElementById("error");
             try {
 
               if (err.length) {
+                busy=0;
                 const errors = err.map(x => x.messageText).join("<br />");
                 errorDiv.innerHTML = errors;
                 errorDiv.style.display = "block";
@@ -186,18 +191,31 @@
               monaco.editor.setTheme("vs-dark");
               keystrokeTillNoError = 0;
 
-
-
-              restartCode(transpileCode(code));
+              busy=0;
+              restartCode(transpileCode(cd));
 
             } catch (err) {
+              busy=0;
               monaco.editor.setTheme("vs-light");
               setTimeout(() => {
                 monaco.editor.setTheme("hc-black");
               }, 10);
               console.error(err)
             }
-          })()
+          }
+          if (!busy) {runner(latestCode)}
+          else {
+            const myCode = code;
+            const cl = setInterval( ()=>{
+              
+              if (myCode!==latestCode) {
+                clearInterval(cl);
+              }
+
+                if (!busy) runner(latestCode);
+              
+            }, 100);
+          }
 
         }
       })
