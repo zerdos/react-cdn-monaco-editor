@@ -60,7 +60,7 @@ export async function startMonaco(
             autoClosingOvertype: "always",
 
             codeLens: true,
-            autoSurround: "brackets",
+            autoSurround: "languageDefined",
             acceptSuggestionOnCommitCharacter: true,
             trimAutoWhitespace: true,
             codeActionsOnSaveTimeout: 100,
@@ -91,7 +91,7 @@ export async function startMonaco(
         // ]);
 
         if (monacoLang !== "html") {
-          (async () => {
+          await (async () => {
             const reactDts = await fetch(
               "https://unpkg.com/@types/react@latest/index.d.ts",
             );
@@ -132,34 +132,35 @@ export async function startMonaco(
               await reactDOMDts.text(),
               "file:///node_modules/@types/react-dom/index.d.ts",
             );
+            return "done";
           })();
-        }
 
-        if (monacoLang === "typescript") {
-          monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: monaco.languages.typescript.ScriptTarget.ESNext,
-            allowNonTsExtensions: true,
-            allowUmdGlobalAccess: true,
-            strict: true,
-            allowJs: true,
-            noEmitOnError: true,
-            allowSyntheticDefaultImports: true,
-            moduleResolution:
-              monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-            module: monaco.languages.typescript.ModuleKind.CommonJS,
-            noEmit: true,
-            typeRoots: ["node_modules/@types"],
-            jsx: monaco.languages.typescript.JsxEmit.React,
-            jsxFactory: "React.createElement",
-            jsxFragmentFactory: "React.Fragment",
+          if (monacoLang === "typescript") {
+            monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+              target: monaco.languages.typescript.ScriptTarget.ESNext,
+              allowNonTsExtensions: true,
+              allowUmdGlobalAccess: true,
+              strict: true,
+              allowJs: true,
+              noEmitOnError: true,
+              allowSyntheticDefaultImports: true,
+              moduleResolution:
+                monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+              module: monaco.languages.typescript.ModuleKind.CommonJS,
+              noEmit: true,
+              typeRoots: ["node_modules/@types"],
+              jsx: monaco.languages.typescript.JsxEmit.React,
+              jsxFactory: "React.createElement",
+              jsxFragmentFactory: "React.Fragment",
+              esModuleInterop: true,
+            });
 
-            esModuleInterop: true,
-          });
-
-          monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-            noSemanticValidation: false,
-            noSyntaxValidation: false,
-          });
+            monaco.languages.typescript.javascriptDefaults
+              .setDiagnosticsOptions({
+                noSemanticValidation: false,
+                noSyntaxValidation: false,
+              });
+          }
         }
 
         editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));

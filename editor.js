@@ -36,7 +36,7 @@ export async function startMonaco({ onChange, code, language }) {
                 autoClosingBrackets: "always",
                 autoClosingOvertype: "always",
                 codeLens: true,
-                autoSurround: "brackets",
+                autoSurround: "languageDefined",
                 acceptSuggestionOnCommitCharacter: true,
                 trimAutoWhitespace: true,
                 codeActionsOnSaveTimeout: 100,
@@ -58,7 +58,7 @@ export async function startMonaco({ onChange, code, language }) {
             //   },
             // ]);
             if (monacoLang !== "html") {
-                (async () => {
+                await (async () => {
                     const reactDts = await fetch("https://unpkg.com/@types/react@latest/index.d.ts");
                     const reactDOMDts = await fetch("https://unpkg.com/@types/react-dom@latest/index.d.ts");
                     const reactGlobalDts = await fetch("https://unpkg.com/@types/react@latest/global.d.ts");
@@ -69,30 +69,32 @@ export async function startMonaco({ onChange, code, language }) {
                     monaco.languages.typescript.typescriptDefaults.addExtraLib(await propTypesDTS.text(), "file:///node_modules/@types/prop-type/index.d.ts");
                     monaco.languages.typescript.typescriptDefaults.addExtraLib(await reactDts.text(), "file:///node_modules/@types/react/index.d.ts");
                     monaco.languages.typescript.typescriptDefaults.addExtraLib(await reactDOMDts.text(), "file:///node_modules/@types/react-dom/index.d.ts");
+                    return "done";
                 })();
-            }
-            if (monacoLang === "typescript") {
-                monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-                    target: monaco.languages.typescript.ScriptTarget.ESNext,
-                    allowNonTsExtensions: true,
-                    allowUmdGlobalAccess: true,
-                    strict: true,
-                    allowJs: true,
-                    noEmitOnError: true,
-                    allowSyntheticDefaultImports: true,
-                    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-                    module: monaco.languages.typescript.ModuleKind.CommonJS,
-                    noEmit: true,
-                    typeRoots: ["node_modules/@types"],
-                    jsx: monaco.languages.typescript.JsxEmit.React,
-                    jsxFactory: "React.createElement",
-                    jsxFragmentFactory: "React.Fragment",
-                    esModuleInterop: true,
-                });
-                monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-                    noSemanticValidation: false,
-                    noSyntaxValidation: false,
-                });
+                if (monacoLang === "typescript") {
+                    monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+                        target: monaco.languages.typescript.ScriptTarget.ESNext,
+                        allowNonTsExtensions: true,
+                        allowUmdGlobalAccess: true,
+                        strict: true,
+                        allowJs: true,
+                        noEmitOnError: true,
+                        allowSyntheticDefaultImports: true,
+                        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+                        module: monaco.languages.typescript.ModuleKind.CommonJS,
+                        noEmit: true,
+                        typeRoots: ["node_modules/@types"],
+                        jsx: monaco.languages.typescript.JsxEmit.React,
+                        jsxFactory: "React.createElement",
+                        jsxFragmentFactory: "React.Fragment",
+                        esModuleInterop: true,
+                    });
+                    monaco.languages.typescript.javascriptDefaults
+                        .setDiagnosticsOptions({
+                        noSemanticValidation: false,
+                        noSyntaxValidation: false,
+                    });
+                }
             }
             editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));
             resolve(editor);
