@@ -1,7 +1,7 @@
 {
   "name": "rca-ts",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://zerdos.github.io/react-cdn-monaco-editor/example/build/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -12,7 +12,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "react": "17.0.1",
-    "react-cdn-monaco-editor": "latest",
+    "react-cdn-monaco-editor": "^2.2.5",
     "react-dom": "17.0.1",
     "react-scripts": "3.4.4",
     "typescript": "~4.0.3"

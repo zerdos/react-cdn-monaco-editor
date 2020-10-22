@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d3708b95eae6f1b2289a4383d10fc4f6",
+    "revision": "d08f32cdbd3aee0b9324e419bfc1ae9f",
     "url": "/react-cdn-monaco-editor/example/build/index.html"
   },
   {
@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css"
   },
   {
-    "revision": "490b3a16dbc79ddf1c9d",
-    "url": "/react-cdn-monaco-editor/example/build/static/js/2.a520aea0.chunk.js"
+    "revision": "856e3c446c7744e6be9a",
+    "url": "/react-cdn-monaco-editor/example/build/static/js/2.ec2c3e02.chunk.js"
   },
   {
     "revision": "f5fc2afae58c4ffc30c6148864765d4b",
-    "url": "/react-cdn-monaco-editor/example/build/static/js/2.a520aea0.chunk.js.LICENSE.txt"
+    "url": "/react-cdn-monaco-editor/example/build/static/js/2.ec2c3e02.chunk.js.LICENSE.txt"
   },
   {
     "revision": "916e2c402c58cf27afff",
