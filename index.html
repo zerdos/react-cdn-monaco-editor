@@ -152,13 +152,15 @@
       restart();
     }
     let keystrokeTillNoError = 0;
-
+    let                latestCode="";
+    let errorReported = "";
+    let busy=0;
+    
 
 
 
     (async () => {
-      let busy=0;
-      let latestCode=""
+    
       const example = getExampleCode();
       const editor = await startMonaco({
         language: "typescript", code: example, onChange: (code) => {
@@ -167,23 +169,30 @@
 
 
           const runner = async (cd) => {
+            if (busy===1) return;
             busy = 1;
             const err = await getErrors();
             const errorDiv = document.getElementById("error");
             try {
+              busy=0;
 
+              if (cd !== latestCode) return;
               if (err.length) {
-                busy=0;
+                if (latestCode!=cd) return;
+                if (errorReported===cd) return;
+
+
+
                 const errors = err.map(x => x.messageText).join("<br />");
                 errorDiv.innerHTML = errors;
                 errorDiv.style.display = "block";
-
+                console.log("Villogjon")
+                errorReported = cd;
                 monaco.editor.setTheme("vs-light");
                 setTimeout(() => {
                   monaco.editor.setTheme("hc-black");
                 }, keystrokeTillNoError++);
 
-                console.error(err)
                 return;
               }
 
@@ -196,6 +205,8 @@
 
             } catch (err) {
               busy=0;
+              if (cd!==latestCode) return;
+
               monaco.editor.setTheme("vs-light");
               setTimeout(() => {
                 monaco.editor.setTheme("hc-black");
