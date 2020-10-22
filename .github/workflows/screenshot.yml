@@ -1,7 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 
 
-name: CI
+name: screenshot
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -22,6 +22,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses:  swinton/screenshot-website@v1.x 
-        source: https://zerdos.github.io/react-cdn-monaco-editor/
-        destination: index-html.png
+        with:
+          source: https://zerdos.github.io/react-cdn-monaco-editor/
+          destination: index-html.png
 
