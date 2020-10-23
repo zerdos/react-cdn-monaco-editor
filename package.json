@@ -1,11 +1,12 @@
 {
     "name": "react-cdn-monaco-editor",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "description": "Monaco Editor for React",
     "main": "index.js",
     "sideEffects": false,
     "scripts": {
-        "build": "yarn format && tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && cp -f lib/* ./",
+        "build": "yarn format && tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && yarn build:example && cp -f lib/* ./",
+        "build:example": "deno bundle example.ts > example.bundle.js",
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && file_server . & node scripts/screenshots.js",
         "format": "deno fmt src && deno fmt example/src",
