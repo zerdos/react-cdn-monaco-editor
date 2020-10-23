@@ -131,12 +131,9 @@
   <div id="container"></div>
   <div id="root"></div>
   <div id="error"></div>
-
-
   <script type="module">
-    import { startMonaco } from "./lib/editor.js";
     import { diff, diff_cleanupMerge } from "./diff.js"
-
+    import { startMonaco } from "./lib/editor.js";
 
 
 
@@ -285,11 +282,11 @@
 
         }
       })
-      await mageDraggable()
+     //
     })();
 
     const mageDraggable = async () => {
-      const interact = (await import('https://cdn.jsdelivr.net/npm/@interactjs/interactjs/index.js')).default;
+      const interact = (await import("https://unpkg.com/@interactjs/interactjs@1.10.0/index.prod.js")).default;
       // target elements with the "draggable" class
       interact('#root')
         .draggable({

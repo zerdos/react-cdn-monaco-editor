@@ -91,47 +91,57 @@ export async function startMonaco(
         // ]);
 
         if (monacoLang !== "html") {
-          await (async () => {
-            const reactDts = await fetch(
-              "https://unpkg.com/@types/react@latest/index.d.ts",
-            );
-            const reactDOMDts = await fetch(
-              "https://unpkg.com/@types/react-dom@latest/index.d.ts",
-            );
-            const reactGlobalDts = await fetch(
-              "https://unpkg.com/@types/react@latest/global.d.ts",
-            );
-            const propTypesDTS = await fetch(
-              "https://unpkg.com/@types/prop-types@latest/index.d.ts",
-            );
-            const cssTypeDts = await fetch(
-              "https://unpkg.com/csstype@latest/index.d.ts",
-            );
+          (async () => {
+            (async () => {
+              const reactDts = await fetch(
+                "https://unpkg.com/@types/react@latest/index.d.ts",
+              );
 
-            monaco.languages.typescript.typescriptDefaults.addExtraLib(
-              await cssTypeDts.text(),
-              "file:///node_modules/@types/csstype/index.d.ts",
-            );
+              monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await reactDts.text(),
+                "file:///node_modules/@types/react/index.d.ts",
+              );
+            })();
+            (async () => {
+              const reactGlobalDts = await fetch(
+                "https://unpkg.com/@types/react@latest/global.d.ts",
+              );
+              monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await reactGlobalDts.text(),
+                "file:///node_modules/@types/react/global.d.ts",
+              );
+            })();
+            (async () => {
+              const cssTypeDts = await fetch(
+                "https://unpkg.com/csstype@latest/index.d.ts",
+              );
 
-            monaco.languages.typescript.typescriptDefaults.addExtraLib(
-              await reactGlobalDts.text(),
-              "file:///node_modules/@types/react/global.d.ts",
-            );
+              monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await cssTypeDts.text(),
+                "file:///node_modules/@types/csstype/index.d.ts",
+              );
+            })();
+            (async () => {
+              const propTypesDTS = await fetch(
+                "https://unpkg.com/@types/prop-types@latest/index.d.ts",
+              );
 
-            monaco.languages.typescript.typescriptDefaults.addExtraLib(
-              await propTypesDTS.text(),
-              "file:///node_modules/@types/prop-type/index.d.ts",
-            );
+              monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await propTypesDTS.text(),
+                "file:///node_modules/@types/prop-type/index.d.ts",
+              );
+            })();
+            (async () => {
+              const reactDOMDts = await fetch(
+                "https://unpkg.com/@types/react-dom@latest/index.d.ts",
+              );
 
-            monaco.languages.typescript.typescriptDefaults.addExtraLib(
-              await reactDts.text(),
-              "file:///node_modules/@types/react/index.d.ts",
-            );
+              monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await reactDOMDts.text(),
+                "file:///node_modules/@types/react-dom/index.d.ts",
+              );
+            })();
 
-            monaco.languages.typescript.typescriptDefaults.addExtraLib(
-              await reactDOMDts.text(),
-              "file:///node_modules/@types/react-dom/index.d.ts",
-            );
             return "done";
           })();
 

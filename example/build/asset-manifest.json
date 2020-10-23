@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css",
-    "main.js": "/react-cdn-monaco-editor/example/build/static/js/main.868a7c3e.chunk.js",
-    "main.js.map": "/react-cdn-monaco-editor/example/build/static/js/main.868a7c3e.chunk.js.map",
+    "main.js": "/react-cdn-monaco-editor/example/build/static/js/main.437f67b7.chunk.js",
+    "main.js.map": "/react-cdn-monaco-editor/example/build/static/js/main.437f67b7.chunk.js.map",
     "runtime-main.js": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js",
     "runtime-main.js.map": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js.map",
-    "static/js/2.ec2c3e02.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.ec2c3e02.chunk.js",
-    "static/js/2.ec2c3e02.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.ec2c3e02.chunk.js.map",
+    "static/js/2.50b656c6.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.50b656c6.chunk.js",
+    "static/js/2.50b656c6.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.50b656c6.chunk.js.map",
     "index.html": "/react-cdn-monaco-editor/example/build/index.html",
-    "precache-manifest.89cc6cc98f9cbe3449643141bb88df99.js": "/react-cdn-monaco-editor/example/build/precache-manifest.89cc6cc98f9cbe3449643141bb88df99.js",
+    "precache-manifest.67dfb4745c360e1403e8326145882863.js": "/react-cdn-monaco-editor/example/build/precache-manifest.67dfb4745c360e1403e8326145882863.js",
     "service-worker.js": "/react-cdn-monaco-editor/example/build/service-worker.js",
     "static/css/main.88fbda7c.chunk.css.map": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css.map",
-    "static/js/2.ec2c3e02.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.ec2c3e02.chunk.js.LICENSE.txt",
+    "static/js/2.50b656c6.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.50b656c6.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/react-cdn-monaco-editor/example/build/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.6c9051da.js",
-    "static/js/2.ec2c3e02.chunk.js",
+    "static/js/2.50b656c6.chunk.js",
     "static/css/main.88fbda7c.chunk.css",
-    "static/js/main.868a7c3e.chunk.js"
+    "static/js/main.437f67b7.chunk.js"
   ]
 }
