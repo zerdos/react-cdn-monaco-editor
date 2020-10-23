@@ -38,7 +38,7 @@
 
 
     #container {
-      position: relative;
+      position: absolute;
       display: block;
       background-color: #1E1E1E;
       float: left;
@@ -96,15 +96,14 @@
 
 
     #root {
-      position: fixed;
-      top: 24px;
+      margin: 24px;
       touch-action: none;
       user-select: none;
+      float: right;
       -webkit-transform: translate(0px, 0px);
       transform: translate(0px, 0px);
       font-size: 32px;
       line-height: 16px;
-      right: 24px;
       background-color: #ddd;
       border-radius: 16px;
       /* min-height: 300px; */
@@ -138,4 +137,14 @@ import {run} from "./example.bundle.js"
 run(React, ReactDOM, Babel, startMonaco)
 
   </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+      $( function() {
+         $( "#root" ).styl;
+
+        $( "#root" ).draggable();
+      } );
+      </script>
 </body>
