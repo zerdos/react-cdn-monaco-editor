@@ -44,7 +44,7 @@ export async function startMonaco(
         } catch (e) {
           reject(e);
         }
-
+        XPathExpression;
         const editor = monaco.editor.create(
           document.getElementById("container"),
           {
@@ -75,9 +75,10 @@ export async function startMonaco(
             autoClosingBrackets: "always",
             autoClosingOvertype: "always",
 
+            suggest: {},
             codeLens: true,
             autoSurround: "languageDefined",
-            acceptSuggestionOnCommitCharacter: true,
+            // acceptSuggestionOnCommitCharacter: true,
             trimAutoWhitespace: true,
             codeActionsOnSaveTimeout: 100,
             model: monaco.editor.createModel(

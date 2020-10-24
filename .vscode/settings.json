@@ -10,5 +10,9 @@
     "editor.minimap.enabled": false,
     "editor.foldingHighlight": true,
     "editor.folding": false,
-    "editor.showFoldingControls": "mouseover"
+    "editor.showFoldingControls": "mouseover",
+    "editor.suggest.insertMode": "insert",
+    "editor.suggestFontSize": 0,
+    "editor.suggestLineHeight": 0,
+    "editor.suggestOnTriggerCharacters": false
 }

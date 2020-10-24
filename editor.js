@@ -26,6 +26,7 @@ export async function startMonaco({ onChange, code, language }) {
             catch (e) {
                 reject(e);
             }
+            XPathExpression;
             const editor = monaco.editor.create(document.getElementById("container"), {
                 cursorStyle: "block",
                 formatOnType: true,
@@ -51,9 +52,10 @@ export async function startMonaco({ onChange, code, language }) {
                 lineNumbers: "off",
                 autoClosingBrackets: "always",
                 autoClosingOvertype: "always",
+                suggest: {},
                 codeLens: true,
                 autoSurround: "languageDefined",
-                acceptSuggestionOnCommitCharacter: true,
+                // acceptSuggestionOnCommitCharacter: true,
                 trimAutoWhitespace: true,
                 codeActionsOnSaveTimeout: 100,
                 model: monaco.editor.createModel(code, monacoLang, monaco.Uri.parse(monacoLang === "typescript"
