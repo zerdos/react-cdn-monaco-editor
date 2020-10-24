@@ -50,15 +50,21 @@ export async function startMonaco(
           {
             cursorStyle: "block",
             formatOnType: true,
-            wordWrap: "on",
+
+            minimap: {
+              enabled: false,
+            },
+            folding: false,
             multiCursorModifier: "ctrlCmd",
+            wordWrap: "on",
             wordWrapBreakAfterCharacters: ">([{]))],;}",
             mouseWheelZoom: false,
+            wordWrapColumn: 70,
 
             //       glyphMargin: true,
             automaticLayout: true,
             scrollBeyondLastLine: false,
-            autoIndent: "full",
+            autoIndent: "brackets",
             autoClosingQuotes: "always",
             lineNumbers: "off",
             autoClosingBrackets: "always",

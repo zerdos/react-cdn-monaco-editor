@@ -6,5 +6,9 @@
         "csstype",
         "esnext",
         "swinton"
-    ]
+    ],
+    "editor.minimap.enabled": false,
+    "editor.foldingHighlight": true,
+    "editor.folding": false,
+    "editor.showFoldingControls": "mouseover"
 }
