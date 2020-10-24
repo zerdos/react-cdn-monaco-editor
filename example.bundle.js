@@ -724,30 +724,6 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             window["monaco"].editor.setTheme("hc-black");
                                             return;
                                         }
-                                        const oldSlices = diff_js_1.diff(latestBadCode, cd);
-                                        const unMerge = oldSlices.filter((o) => o[0] !== 0);
-                                        let filtered = slices.filter((t) => t[0] === 0 || t[1] === unMerge[0][1]);
-                                        if (filtered.length > 4) {
-                                            filtered = filtered.filter((t) => t[0] === 0);
-                                        }
-                                        diff_js_1.diff_cleanupMerge(filtered, false);
-                                        let newStr = "";
-                                        let offset = 0;
-                                        filtered.map((t) => {
-                                            newStr = newStr + t[1];
-                                            if (t[0] !== 0) {
-                                                offset = newStr.length;
-                                            }
-                                        });
-                                        busy = 0;
-                                        if (newStr !== cd) {
-                                            editor.setValue(newStr);
-                                            const model = editor.getModel("file:///Main.tsx");
-                                            const position = model.getPositionAt(offset);
-                                            const validPos = model.validatePosition(position);
-                                            editor.setPosition(validPos);
-                                            return;
-                                        }
                                         const errors = err.map((x) => x.messageText).join("<br />");
                                         errorDiv.innerHTML = errors;
                                         errorDiv.style.display = "block";

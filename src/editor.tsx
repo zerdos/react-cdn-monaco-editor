@@ -13,21 +13,22 @@ export async function startMonaco(
   }
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
     async function (resolve, reject) {
-      const version = "0.21.2";
+      if (window["monaco"]) return window["monaco"];
+      window["monaco"] = "loading";
 
       // await loadScript(
       //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
       // );
 
       await loadScript(
-        `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`,
+        "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js",
       );
 
       const vsPath =
-        `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs`;
+        "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
 
       await loadScript(
-        `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/${version}/min/vs/loader.min.js`,
+        "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js",
       );
 
       // @ts-ignore
@@ -50,6 +51,11 @@ export async function startMonaco(
           {
             cursorStyle: "block",
             formatOnType: true,
+            scrollbar: {
+              horizontal: "hidden",
+              verticalHasArrows: true,
+              verticalScrollbarSize: 20,
+            },
 
             minimap: {
               enabled: false,
