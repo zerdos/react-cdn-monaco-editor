@@ -1,5 +1,5 @@
 export async function startMonaco({ onChange, code, language }) {
-    const remoteFile = await fetch(`https://unpkg.com/react-cdn-monaco-editor@2.3.1/editor.js`);
+    const remoteFile = await fetch(`https://unpkg.com/react-cdn-monaco-editor@2.3.3/editor.js`);
     const remoteAsText = await remoteFile.text();
     const searchRegExp = /export/gi;
     const replaceWith = "";
