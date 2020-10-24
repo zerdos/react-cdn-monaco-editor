@@ -157,6 +157,8 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
   })();
 
   restartCode(transpileCode(getExampleCode()));
+  //@ts-ignore
+  document.getElementById("root").style.display="block"
   // dragElement(document.getElementById("root"));
 
   async function getErrors(editor: any) {

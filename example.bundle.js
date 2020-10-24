@@ -791,6 +791,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                     });
                 })();
                 restartCode(transpileCode(getExampleCode()));
+                document.getElementById("root").style.display = "block";
                 async function getErrors(editor) {
                     const model = editor.getModel("file:///main.tsx");
                     const tsWorker = await window["monaco"].languages.typescript
