@@ -716,7 +716,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         if (errorReported === cd)
                                             return;
-                                        document.getElementById("root").setAttribute("style", "display:none");
+                                        document.getElementById("root").setAttribute("style", "display:block;opacity:0.3");
                                         const slices = diff_js_1.diff(latestGoodCode, cd);
                                         console.log(slices);
                                         if (slices.length <= 3) {

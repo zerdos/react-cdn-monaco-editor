@@ -8,7 +8,7 @@
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/interactjs@1.10.0/dist/interact.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="reset.css">
 
   <style>
     #container {
@@ -61,13 +61,15 @@
       padding: 32px;
       touch-action: none;
       float: right;
+      top: 24px;
+      left: 120vw;
       -webkit-transform: translate(0px, 0px);
       transform: translate(0px, 0px);
       font-size: 32px;
       background-color: #ddd;
       border-radius: 16px;
-      /* min-height: 300px; */
-      /* min-width: 400px; */
+      width: fit-content;
+      max-width: 40vw;
       background: #ddd;
       box-shadow:
         0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -93,7 +95,7 @@
   <div id="container"></div>
 
   <div id="error" class="draggable"></div>  
-  <div id="root" class="draggable"></div>
+  <div id="root" class="draggable resize-drag"></div>
   
   <script type="module">
     import { startMonaco } from "./lib/editor.js";
@@ -102,7 +104,47 @@
 
 
 
-    const makeDragabble = () => interact('#root')
+    const makeDragabble = () => {
+      
+
+
+  //     interact('.resize-drag')
+  // .resizable({
+  //   // resize from all edges and corners
+  //   edges: { left: true, right: true, bottom: true, top: true },
+
+  //   listeners: {
+  //     move (event) {
+  //       var target = event.target
+  //       var x = (parseFloat(target.getAttribute('data-x')) || 0)
+  //       var y = (parseFloat(target.getAttribute('data-y')) || 0)
+
+  //       // update the element's style
+  //       target.style.width = event.rect.width + 'px'
+  //       target.style.height = event.rect.height + 'px'
+
+  //       // translate when resizing from top or left edges
+  //       x += event.deltaRect.left
+  //       y += event.deltaRect.top
+
+  //       target.style.webkitTransform = target.style.transform =
+  //         'translate(' + x + 'px,' + y + 'px)'
+
+  //       target.setAttribute('data-x', x)
+  //       target.setAttribute('data-y', y)
+  //     }
+  //   },
+  //   modifiers: [
+  //     // keep the edges inside the parent
+
+
+
+  //   ],
+
+  //   inertia: true
+  // });
+
+  interact('.draggable')
       .draggable({
         // enable inertial throwing
         inertia: true,
@@ -125,6 +167,7 @@
           }
         }
       })
+    }
 
     setTimeout(() => makeDragabble(), 1000);
 // 

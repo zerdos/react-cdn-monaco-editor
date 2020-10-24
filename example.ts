@@ -54,7 +54,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
               if (errorReported === cd) return;
       ///@ts-ignore
                 
-              document.getElementById("root").setAttribute("style","display:none");
+              document.getElementById("root").setAttribute("style","display:block;opacity:0.3");
               const slices = diff(latestGoodCode, cd);
               console.log(slices);
 
