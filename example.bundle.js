@@ -716,6 +716,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         if (errorReported === cd)
                                             return;
+                                        document.getElementById("root").setAttribute("style", "display:none");
                                         const slices = diff_js_1.diff(latestGoodCode, cd);
                                         console.log(slices);
                                         if (slices.length <= 3) {
@@ -760,6 +761,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                     latestGoodCode = cd;
                                     errorDiv.style.display = "none";
                                     window["monaco"].editor.setTheme("vs-dark");
+                                    document.getElementById("root").setAttribute("style", "display:block");
                                     keystrokeTillNoError = 0;
                                     busy = 0;
                                     restartCode(transpileCode(cd));
@@ -791,7 +793,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                     });
                 })();
                 restartCode(transpileCode(getExampleCode()));
-                document.getElementById("root").style.display = "block";
+                document.getElementById("root").setAttribute("style", "display:block");
                 async function getErrors(editor) {
                     const model = editor.getModel("file:///main.tsx");
                     const tsWorker = await window["monaco"].languages.typescript

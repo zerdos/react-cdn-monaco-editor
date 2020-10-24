@@ -13,7 +13,6 @@
   <style>
     #container {
       position: absolute;
-      display: block;
       background-color: #1E1E1E;
       float: left;
       height: 100vh;
@@ -51,9 +50,7 @@
     }
     
     #root {
-      display: block;
-      display: none
-
+      display: none;
     }
 
 
@@ -105,7 +102,7 @@
 
 
 
-    const makeDragabble = () => interact('.draggable')
+    const makeDragabble = () => interact('#root')
       .draggable({
         // enable inertial throwing
         inertia: true,

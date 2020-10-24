@@ -52,15 +52,17 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
             if (err && err.length) {
               if (latestCode != cd) return;
               if (errorReported === cd) return;
-
+      ///@ts-ignore
+                
+              document.getElementById("root").setAttribute("style","display:none");
               const slices = diff(latestGoodCode, cd);
               console.log(slices);
 
               if (slices.length <= 3) {
                 latestBadCode = cd;
                 ///@ts-ignore
-                window["monaco"].editor.setTheme("hc-black");
-                return;
+                window["monaco"].editor.setTheme("hc-black") 
+                  return;
               }
 
               const oldSlices = diff(latestBadCode, cd);
@@ -122,7 +124,11 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
 
             errorDiv!.style!.display = "none";
             //@ts-ignore
-            window["monaco"].editor.setTheme("vs-dark");
+   
+            window["monaco"].editor.setTheme("vs-dark")
+            
+            //@ts-ignore
+            document.getElementById("root").setAttribute("style","display:block");
             keystrokeTillNoError = 0;
 
             busy = 0;
@@ -158,7 +164,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
 
   restartCode(transpileCode(getExampleCode()));
   //@ts-ignore
-  document.getElementById("root").style.display="block"
+  document.getElementById("root").setAttribute("style","display:block");
   // dragElement(document.getElementById("root"));
 
   async function getErrors(editor: any) {
