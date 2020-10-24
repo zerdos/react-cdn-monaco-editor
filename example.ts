@@ -185,21 +185,21 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
 import ReactDOM from "react-dom";
 
 const Counter = (
-{ initial = 0 }
+    { initial = 0 }
 ) => {
-const [clicks, setClicks] = React.useState(initial);
+    const [clicks, setClicks] = React.useState(initial);
 
-return <div>
-    <p>Clicks: <strong>{clicks}</strong></p>
-    <button onClick={() => setClicks(clicks + 1)}>+</button>
-    <button onClick={() => setClicks(clicks - 1)}>-</button>
-</div>;
+    return <div>
+        <p>Clicks: <strong>{clicks}</strong></p>
+        <button onClick={() => setClicks(clicks + 1)}>+</button>
+        <button onClick={() => setClicks(clicks - 1)}>-</button>
+    </div>;
 };
 
 ReactDOM.render(
-<Counter initial={0} />,
-document.getElementById("root")
-);
+    <Counter initial={0} />,
+    document.getElementById("root")
+);    
 `;
   }
 };
