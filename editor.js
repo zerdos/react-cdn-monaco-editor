@@ -38,7 +38,7 @@ export async function startMonaco({ onChange, code, language }) {
                     enabled: false,
                 },
                 folding: false,
-                multiCursorModifier: "ctrlCmd",
+                multiCursorModifier: "alt",
                 wordWrap: "on",
                 wordWrapBreakAfterCharacters: ">([{]))],;}",
                 mouseWheelZoom: false,

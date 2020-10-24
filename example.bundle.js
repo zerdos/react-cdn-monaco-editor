@@ -716,7 +716,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         if (errorReported === cd)
                                             return;
-                                        document.getElementById("root").setAttribute("style", "display:block;opacity:0.3");
+                                        document.getElementById("root").setAttribute("style", "display:block;opacity:0.5");
                                         const slices = diff_js_1.diff(latestGoodCode, cd);
                                         console.log(slices);
                                         if (slices.length <= 3) {
@@ -724,8 +724,8 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             window["monaco"].editor.setTheme("hc-black");
                                             return;
                                         }
-                                        const errors = err.map((x) => x.messageText).join("<br />");
-                                        errorDiv.innerHTML = errors;
+                                        errorDiv.innerHTML = errors[0].messageText;
+                                        document.getElementById("root").setAttribute("style", "display:none");
                                         errorDiv.style.display = "block";
                                         errorReported = cd;
                                         window["monaco"].editor.setTheme("vs-light");

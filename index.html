@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-  <meta name="viewport" content="width=device-width,user-scalable=no">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
   <meta content="utf-8" http-equiv="encoding">
   <script crossorigin src="https://unpkg.com/@babel/standalone@7.12.4/babel.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
@@ -87,6 +87,16 @@
 
 </style>
 </head>
+<script type="text/javascript">
+
+  function showChar(e){
+    alert(
+      "Key Pressed: " + e.key + "\n"
+      + "CTRL key pressed: " + e.ctrlKey + "\n"
+    );
+  }
+  
+  </script>
 
 <body>
 

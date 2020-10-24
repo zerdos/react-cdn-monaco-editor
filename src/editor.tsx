@@ -15,7 +15,6 @@ export async function startMonaco(
     async function (resolve, reject) {
       if (window["monaco"]) return window["monaco"];
       window["monaco"] = "loading";
-
       // await loadScript(
       //   "https://unpkg.com/react-cdn-monaco-editor@1.1.1/dts-gen.bundle.js",
       // );
@@ -61,7 +60,7 @@ export async function startMonaco(
               enabled: false,
             },
             folding: false,
-            multiCursorModifier: "ctrlCmd",
+            multiCursorModifier: "alt",
             wordWrap: "on",
             wordWrapBreakAfterCharacters: ">([{]))],;}",
             mouseWheelZoom: false,

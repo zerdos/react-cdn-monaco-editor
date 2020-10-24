@@ -54,7 +54,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
               if (errorReported === cd) return;
       ///@ts-ignore
                 
-              document.getElementById("root").setAttribute("style","display:block;opacity:0.3");
+              document.getElementById("root").setAttribute("style","display:block;opacity:0.5");
               const slices = diff(latestGoodCode, cd);
               console.log(slices);
 
@@ -103,10 +103,13 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
               //   // model.modifyPosition(position)
               //   return;
               // }
-              const errors = err.map((x) => x.messageText).join("<br />");
+              // const errors = err..map((x) => x.messageText)
 
               //@ts-ignore
-              errorDiv.innerHTML = errors;
+              errorDiv.innerHTML = errors[0].messageText;
+                 ///@ts-ignore
+                
+                 document.getElementById("root").setAttribute("style","display:none");
 
               errorDiv.style.display = "block";
               errorReported = cd;
