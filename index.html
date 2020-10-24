@@ -7,36 +7,10 @@
   <script crossorigin src="https://unpkg.com/@babel/standalone@7.12.4/babel.min.js"></script>
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
-
+  <script crossorigin src="https://unpkg.com/interactjs@1.10.0/dist/interact.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
   <style>
-    body {
-      position: fixed;
-      margin: auto;
-      width: 100vw;
-      height: 100vh;
-      /* --webkit-overflow-scrolling: touch;  */
-    }
-
-    img~.content {
-      display: none;
-    }
-
-    img:hover~.content {
-      display: block;
-    }
-
-
-    .myGlyphMarginClass {
-      background: red;
-
-    }
-
-    .myContentClass {
-      background: lightblue;
-    }
-
-
     #container {
       position: absolute;
       display: block;
@@ -68,48 +42,23 @@
 
     #error {
       display: none;
-      position: fixed;
-      top: 24px;
-      touch-action: none;
-      user-select: none;
-      -webkit-transform: translate(0px, 0px);
-      transform: translate(0px, 0px);
-      font-size: 32px;
-      line-height: 42px;
-      right: 24px;
       background-color: red;
       opacity: 0.7;
-      border-radius: 16px;
-      min-height: 300px;
-      min-width: 400px;
-      padding: 16px;
-      cursor: move;
-      background: red;
-      box-shadow:
-        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-        0 12.5px 10px rgba(0, 0, 0, 0.06),
-        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-        0 100px 80px rgba(0, 0, 0, 0.12);
     }
 
 
-    #root {
+
+    .draggable {
       margin: 24px;
-      touch-action: none;
-      user-select: none;
+      padding: 32px;
       float: right;
       -webkit-transform: translate(0px, 0px);
       transform: translate(0px, 0px);
       font-size: 32px;
-      line-height: 16px;
       background-color: #ddd;
       border-radius: 16px;
       /* min-height: 300px; */
       /* min-width: 400px; */
-      padding: 16px;
-      cursor: move;
       background: #ddd;
       box-shadow:
         0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -128,72 +77,65 @@
 
 <body>
   <div id="container"></div>
-  <div id="root"></div>
-  <div id="error"></div>
+  <div id="root" class="draggable"></div>
+  <div id="error" class="draggable"></div>
   <script type="module">
-import { startMonaco } from "./lib/editor.js";
-import {run} from "./example.bundle.js"
+    import { startMonaco } from "./lib/editor.js";
+    import { run } from "./example.bundle.js"
+    run(React, ReactDOM, Babel, startMonaco)
 
-run(React, ReactDOM, Babel, startMonaco)
+
+    const makeDragabble = () => interact('.draggable')
+      .draggable({
+        // enable inertial throwing
+        inertia: true,
+        // keep the element within the area of it's parent
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: 'parent',
+            endOnly: true
+          })
+        ],
+        // enable autoScroll
+        autoScroll: true,
+        listeners: {
+          // call this function on every dragmove event
+          move: dragMoveListener,
+
+          // call this function on every dragend event
+          end(event) {
+            var textEl = event.target.querySelector('p')
+
+            textEl && (textEl.textContent =
+              'moved a distance of ' +
+              (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                Math.pow(event.pageY - event.y0, 2) | 0))
+                .toFixed(2) + 'px')
+          }
+        }
+      })
+
+    setTimeout(() => makeDragabble(), 1000);
+
+    function dragMoveListener(event) {
+      var target = event.target
+      // keep the dragged position in the data-x/data-y attributes
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+      // translate the element
+      target.style.webkitTransform =
+        target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)'
+
+      // update the posiion attributes
+      target.setAttribute('data-x', x)
+      target.setAttribute('data-y', y)
+    }
+
+    // this function is used later in the resizing and gesture demos
+    window.dragMoveListener = dragMoveListener
 
   </script>
-  <script src = "https://unpkg.com/interactjs@1.10.0/dist/interact.min.js" ></script>
-<script>
-
-
-
-
-const makeDragabble = async () =>interact('#root')
-  .draggable({
-    // enable inertial throwing
-    inertia: true,
-    // keep the element within the area of it's parent
-    modifiers: [
-      interact.modifiers.restrictRect({
-        restriction: 'parent',
-        endOnly: true
-      })
-    ],
-    // enable autoScroll
-    autoScroll: true,
-    listeners: {
-      // call this function on every dragmove event
-      move: dragMoveListener,
-
-      // call this function on every dragend event
-      end (event) {
-        var textEl = event.target.querySelector('p')
-
-        textEl && (textEl.textContent =
-          'moved a distance of ' +
-          (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-                     Math.pow(event.pageY - event.y0, 2) | 0))
-            .toFixed(2) + 'px')
-      }
-    }
-  })
-
-setTimeout(()=>makeDragabble(), 1000);
-
-function dragMoveListener (event) {
-  var target = event.target
-  // keep the dragged position in the data-x/data-y attributes
-  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-  // translate the element
-  target.style.webkitTransform =
-    target.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)'
-
-  // update the posiion attributes
-  target.setAttribute('data-x', x)
-  target.setAttribute('data-y', y)
-}
-
-// this function is used later in the resizing and gesture demos
-window.dragMoveListener = dragMoveListener
-
-    </script> 
 
 </body>
