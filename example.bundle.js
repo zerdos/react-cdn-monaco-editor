@@ -665,7 +665,7 @@ System.register("diff", [], function (exports_1, context_1) {
 });
 System.register("example", ["diff"], function (exports_2, context_2) {
     "use strict";
-    var diff_js_1, run;
+    var diff_js_1, importScript, run, css, style;
     var __moduleName = context_2 && context_2.id;
     return {
         setters: [
@@ -674,11 +674,22 @@ System.register("example", ["diff"], function (exports_2, context_2) {
             }
         ],
         execute: function () {
-            exports_2("run", run = async (Babel, interact, startMonaco) => {
+            importScript = async (src) => new Promise(function (resolve, reject) {
+                const s = document.createElement("script");
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+            exports_2("run", run = async (startMonaco) => {
+                await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
+                await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
+                await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
+                await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
                 const searchRegExp = /import/gi;
                 const replaceWith = "///";
                 setTimeout(() => makeDragabble(), 100);
-                const transpileCode = (code) => Babel.transform(code, {
+                const transpileCode = (code) => window["Babel"].transform(code, {
                     plugins: [],
                     presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
                 }).code.replace(searchRegExp, replaceWith);
@@ -796,7 +807,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                     return [...diag, ...comp, ...syntax];
                 }
                 const makeDragabble = () => {
-                    interact('.draggable')
+                    window.interact('.draggable')
                         .draggable({
                         inertia: true,
                         modifiers: [
@@ -843,18 +854,93 @@ ReactDOM.render(
 );    
 `;
                 }
-                return async (src) => new Promise(function (resolve, reject) {
-                    const s = document.createElement("script");
-                    s.src = src;
-                    s.onload = resolve;
-                    s.onerror = reject;
-                    document.head.appendChild(s);
-                });
             });
+            exports_2("css", css = `html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+#container {
+  background-color: #1E1E1E;
+  width: 100vw;
+  height: 100vh;
+  animation-duration: 1s;
+  animation-name: opening;
+}
+body{
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+@keyframes opening {
+  from {
+    width: 10%;
+    height: 20vh;
+  }
+
+  66% {
+    width: 100%;
+    height: 20vh;
+  }
+
+  to {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+
+#error {
+  display: none;
+  background-color: red;
+  opacity: 0.7;
+}
+
+#root {
+  display: none;
+}
+
+.draggable {
+  margin: 24px;
+  padding: 32px;
+  position: absolute;
+  touch-action: none;
+  overflow: hidden;
+  z-index: 2;
+  word-wrap: break-word;
+  right: 24px;
+  /* float: right; */
+  /* top: 24px; */
+  /* right: 24px ; */
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  font-size: 32px;
+  background-color: #ddd;
+  border-radius: 16px;
+  width: fit-content;
+  max-width: 40vw;
+  background: #ddd;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+.almosthidden {
+  opacity: 0.5;
+}
+
+button {
+  font-size: large;
+}
+`);
+            style = document.createElement('style');
+            style.appendChild(document.createTextNode(css));
+            document.getElementsByTagName('head')[0].appendChild(style);
         }
     };
 });
 
 const __exp = __instantiate("example", false);
 export const run = __exp["run"];
+export const css = __exp["css"];
 
