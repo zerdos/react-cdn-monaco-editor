@@ -46,18 +46,18 @@ export const run = async (startMonaco) => {
       code: latestGoodCode
      };
 
+     const stringBody = JSON.stringify(body);
      const request = new Request(
        "https://my-ts-project.zed-vision.workers.dev",
        {
-         body: JSON.stringify(body),
+         body: stringBody,
          method: "POST",
          headers: { "content-type": "application/json;charset=UTF-8" },
        },
      );
-     restart()
-
+    
      const response = await fetch(request);
-       console.log(response)
+     restart()
   };
 
 
