@@ -12,7 +12,7 @@ export async function startMonaco(
     return window["monaco"]["editor"];
   }
   return new Promise<monaco.editor.IStandaloneCodeEditor>(
-    async function (resolve, reject) {
+    async function (resolve) {
       if (window["monaco"]) return window["monaco"];
       window["monaco"] = "loading";
       // await loadScript(
@@ -39,11 +39,6 @@ export async function startMonaco(
       require(["vs/editor/editor.main"], async function () {
         const monaco = (window as unknown as { monaco: monacoType }).monaco;
 
-        try {
-          console.log(":)");
-        } catch (e) {
-          reject(e);
-        }
         XPathExpression;
         const editor = monaco.editor.create(
           document.getElementById("container"),
