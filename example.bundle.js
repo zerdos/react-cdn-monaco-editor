@@ -684,6 +684,19 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                 const restartCode = (transpileCode) => {
                     const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
                     restart();
+                    async () => {
+                        const dataObj = {
+                            code: transpileCode
+                        };
+                        const body = { results: [dataObj], errors: null, msg: "" };
+                        const request = new Request("https://my-ts-project.zed-vision.workers.dev", {
+                            body: JSON.stringify(body),
+                            method: "POST",
+                            headers: { "content-type": "application/json;charset=UTF-8" },
+                        });
+                        const response = await fetch(request);
+                        console.log(response);
+                    };
                 };
                 let keystrokeTillNoError = 0;
                 let latestCode = "";
