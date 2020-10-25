@@ -728,7 +728,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         if (errorReported === cd)
                                             return;
-                                        document.getElementById("root").classList.add("errorish");
+                                        document.getElementById("root").classList.add("almosthidden");
                                         const slices = diff_js_1.diff(latestGoodCode, cd);
                                         console.log(slices);
                                         if (slices.length <= 3) {
@@ -749,7 +749,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                     latestGoodCode = cd;
                                     errorDiv.style.display = "none";
                                     window["monaco"].editor.setTheme("vs-dark");
-                                    document.getElementById("root").classList.remove("errorish");
+                                    document.getElementById("root").classList.remove("almosthidden");
                                     keystrokeTillNoError = 0;
                                     busy = 0;
                                     restartCode(transpileCode(cd));
@@ -843,6 +843,13 @@ ReactDOM.render(
 );    
 `;
                 }
+                return async (src) => new Promise(function (resolve, reject) {
+                    const s = document.createElement("script");
+                    s.src = src;
+                    s.onload = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                });
             });
         }
     };

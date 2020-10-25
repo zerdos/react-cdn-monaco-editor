@@ -76,7 +76,7 @@ export const run = async (Babel, interact, startMonaco) => {
               if (errorReported === cd) return;
       ///@ts-ignore
                 
-              document.getElementById("root").classList.add("errorish")
+              document.getElementById("root").classList.add("almosthidden")
               const slices = diff(latestGoodCode, cd);
               console.log(slices);
 
@@ -153,7 +153,7 @@ export const run = async (Babel, interact, startMonaco) => {
             window["monaco"].editor.setTheme("vs-dark")
             
             //@ts-ignore
-            document.getElementById("root").classList.remove("errorish")
+            document.getElementById("root").classList.remove("almosthidden")
             keystrokeTillNoError = 0;
 
             busy = 0;
@@ -276,4 +276,14 @@ ReactDOM.render(
 );    
 `;
   }
+
+  return async(src: string) => new Promise(function (resolve, reject) {
+      ///@ts-ignore
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      ///@ts-ignore
+      document.head.appendChild(s);
+    });
 };
