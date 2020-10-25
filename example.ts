@@ -23,6 +23,9 @@ export const run = async (startMonaco) => {
 
   setTimeout(()=>makeDragabble(), 100);
 
+  let latestGoodCode = "";
+ 
+
   const transpileCode = (code: string) =>
 ///@ts-ignore
     window["Babel"].transform(code, {
@@ -37,11 +40,11 @@ export const run = async (startMonaco) => {
       "transpileCode",
       `return function(){ ${transpileCode} }`,
     )();
-    const dataObj = {
-      code: transpileCode
+  
+   const body = {
+      codeTranspiled: transpileCode,
+      code: latestGoodCode
      };
-
-     const body = { results: [dataObj], errors: null, msg: "" };
 
      const request = new Request(
        "https://my-ts-project.zed-vision.workers.dev",
@@ -63,7 +66,6 @@ export const run = async (startMonaco) => {
   let latestCode = "";
   let errorReported = "";
   let busy = 0;
-  let latestGoodCode = "";
   let latestBadCode = "";
 
   (async () => {

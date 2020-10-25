@@ -689,16 +689,17 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                 const searchRegExp = /import/gi;
                 const replaceWith = "///";
                 setTimeout(() => makeDragabble(), 100);
+                let latestGoodCode = "";
                 const transpileCode = (code) => window["Babel"].transform(code, {
                     plugins: [],
                     presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
                 }).code.replace(searchRegExp, replaceWith);
                 const restartCode = async (transpileCode) => {
                     const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
-                    const dataObj = {
-                        code: transpileCode
+                    const body = {
+                        codeTranspiled: transpileCode,
+                        code: latestGoodCode
                     };
-                    const body = { results: [dataObj], errors: null, msg: "" };
                     const request = new Request("https://my-ts-project.zed-vision.workers.dev", {
                         body: JSON.stringify(body),
                         method: "POST",
@@ -712,7 +713,6 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                 let latestCode = "";
                 let errorReported = "";
                 let busy = 0;
-                let latestGoodCode = "";
                 let latestBadCode = "";
                 (async () => {
                     const example = getExampleCode();
