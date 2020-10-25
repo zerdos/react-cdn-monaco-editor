@@ -674,9 +674,10 @@ System.register("example", ["diff"], function (exports_2, context_2) {
             }
         ],
         execute: function () {
-            exports_2("run", run = async (React, ReactDOM, Babel, startMonaco) => {
+            exports_2("run", run = async (Babel, interact, startMonaco) => {
                 const searchRegExp = /import/gi;
                 const replaceWith = "///";
+                setTimeout(() => makeDragabble(), 100);
                 const transpileCode = (code) => Babel.transform(code, {
                     plugins: [],
                     presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
@@ -727,7 +728,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         if (errorReported === cd)
                                             return;
-                                        document.getElementById("root").setAttribute("style", "display:block;opacity:0.5");
+                                        document.getElementById("root").classList.add("errorish");
                                         const slices = diff_js_1.diff(latestGoodCode, cd);
                                         console.log(slices);
                                         if (slices.length <= 3) {
@@ -736,7 +737,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                             return;
                                         }
                                         errorDiv.innerHTML = errors[0].messageText;
-                                        document.getElementById("root").setAttribute("style", "display:none");
+                                        document.getElementById("root").style.setProperty("dispay", "none");
                                         errorDiv.style.display = "block";
                                         errorReported = cd;
                                         window["monaco"].editor.setTheme("vs-light");
@@ -748,7 +749,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                                     latestGoodCode = cd;
                                     errorDiv.style.display = "none";
                                     window["monaco"].editor.setTheme("vs-dark");
-                                    document.getElementById("root").setAttribute("style", "display:block");
+                                    document.getElementById("root").classList.remove("errorish");
                                     keystrokeTillNoError = 0;
                                     busy = 0;
                                     restartCode(transpileCode(cd));
@@ -793,6 +794,32 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                         .getCompilerOptionsDiagnostics("file:///main.tsx");
                     const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
                     return [...diag, ...comp, ...syntax];
+                }
+                const makeDragabble = () => {
+                    interact('.draggable')
+                        .draggable({
+                        inertia: true,
+                        modifiers: [
+                            interact.modifiers.restrictRect({
+                                restriction: 'parent',
+                                endOnly: true
+                            })
+                        ],
+                        autoScroll: false,
+                        listeners: {
+                            move: dragMoveListener,
+                        }
+                    });
+                };
+                function dragMoveListener(event) {
+                    var target = event.target;
+                    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    target.style.webkitTransform =
+                        target.style.transform =
+                            'translate(' + x + 'px, ' + y + 'px)';
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
                 }
                 function getExampleCode() {
                     return `import * as React from "react";

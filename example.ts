@@ -1,10 +1,11 @@
-import { diff, diff_cleanupMerge } from "./diff.js";
-// import interact from "./node_modules/@interactjs/interactjs/index.js"
+import { diff } from "./diff.js";
 
 //@ts-ignore
-export const run = async (React, ReactDOM, Babel, startMonaco) => {
+export const run = async (Babel, interact, startMonaco) => {
   const searchRegExp = /import/gi;
   const replaceWith = "///";
+
+  setTimeout(()=>makeDragabble(), 100);
 
   const transpileCode = (code: string) =>
     Babel.transform(code, {
@@ -75,7 +76,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
               if (errorReported === cd) return;
       ///@ts-ignore
                 
-              document.getElementById("root").setAttribute("style","display:block;opacity:0.5");
+              document.getElementById("root").classList.add("errorish")
               const slices = diff(latestGoodCode, cd);
               console.log(slices);
 
@@ -130,7 +131,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
               errorDiv.innerHTML = errors[0].messageText;
                  ///@ts-ignore
                 
-                 document.getElementById("root").setAttribute("style","display:none");
+                 document.getElementById("root").style.setProperty("dispay","none")
 
               errorDiv.style.display = "block";
               errorReported = cd;
@@ -152,7 +153,7 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
             window["monaco"].editor.setTheme("vs-dark")
             
             //@ts-ignore
-            document.getElementById("root").setAttribute("style","display:block");
+            document.getElementById("root").classList.remove("errorish")
             keystrokeTillNoError = 0;
 
             busy = 0;
@@ -211,6 +212,47 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
 
     return [...diag, ...comp, ...syntax];
   }
+
+
+  const makeDragabble = () => {
+    interact('.draggable')
+        .draggable({
+          // enable inertial throwing
+          inertia: true,
+          // keep the element within the area of it's parent
+          modifiers: [
+            interact.modifiers.restrictRect({
+              restriction: 'parent',
+              endOnly: true
+              })
+          ],
+          // enable autoScroll
+          autoScroll: false,
+          listeners: {
+            // call this function on every dragmove event
+            move: dragMoveListener,
+  
+            // call this function on every dragend event
+          }
+        })
+      }
+  
+      ///@ts-ignore
+      function dragMoveListener(event: any) {
+        var target = event.target
+        // keep the dragged position in the data-x/data-y attributes
+        var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+        var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+  
+        // translate the element
+        target.style.webkitTransform =
+          target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)'
+  
+        // update the posiion attributes
+        target.setAttribute('data-x', x)
+        target.setAttribute('data-y', y)
+      }
 
   function getExampleCode() {
     return `import * as React from "react";

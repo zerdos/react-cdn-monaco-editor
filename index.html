@@ -80,6 +80,9 @@
         0 41.8px 33.4px rgba(0, 0, 0, 0.086),
         0 100px 80px rgba(0, 0, 0, 0.12);
     }
+    .errorish {
+      opacity: 0.5;
+    }
 
     button {
       font-size: large;
@@ -87,121 +90,15 @@
 
 </style>
 </head>
-<script type="text/javascript">
-
-  function showChar(e){
-    alert(
-      "Key Pressed: " + e.key + "\n"
-      + "CTRL key pressed: " + e.ctrlKey + "\n"
-    );
-  }
-  
-  </script>
-
 <body>
-
-  <div style="position: relative">
-
-  <div id="error" class="draggable"></div>  
+  <div id="error" class="draggable"></div>
   <div id="root" class="draggable resize-drag"></div>
-
   <div id="container"></div>
 
-
-  </div>
   <script type="module">
-    import { startMonaco } from "./lib/editor.js";
     import { run } from "./example.bundle.js"
-    run(React, ReactDOM, Babel, startMonaco)
-
-
-
-    const makeDragabble = () => {
-      
-
-
-  //     interact('.resize-drag')
-  // .resizable({
-  //   // resize from all edges and corners
-  //   edges: { left: true, right: true, bottom: true, top: true },
-
-  //   listeners: {
-  //     move (event) {
-  //       var target = event.target
-  //       var x = (parseFloat(target.getAttribute('data-x')) || 0)
-  //       var y = (parseFloat(target.getAttribute('data-y')) || 0)
-
-  //       // update the element's style
-  //       target.style.width = event.rect.width + 'px'
-  //       target.style.height = event.rect.height + 'px'
-
-  //       // translate when resizing from top or left edges
-  //       x += event.deltaRect.left
-  //       y += event.deltaRect.top
-
-  //       target.style.webkitTransform = target.style.transform =
-  //         'translate(' + x + 'px,' + y + 'px)'
-
-  //       target.setAttribute('data-x', x)
-  //       target.setAttribute('data-y', y)
-  //     }
-  //   },
-  //   modifiers: [
-  //     // keep the edges inside the parent
-
-
-
-  //   ],
-
-  //   inertia: true
-  // });
-
-  interact('.draggable')
-      .draggable({
-        // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        modifiers: [
-          interact.modifiers.restrictRect({
-            restriction: 'parent',
-            endOnly: true
-            })
-        ],
-        // enable autoScroll
-        autoScroll: false,
-        listeners: {
-          // call this function on every dragmove event
-          move: dragMoveListener,
-
-          // call this function on every dragend event
-          end(event) {
-            
-          }
-        }
-      })
-    }
-
-    setTimeout(() => makeDragabble(), 1000);
-// 
-    function dragMoveListener(event) {
-      var target = event.target
-      // keep the dragged position in the data-x/data-y attributes
-      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-      // translate the element
-      target.style.webkitTransform =
-        target.style.transform =
-        'translate(' + x + 'px, ' + y + 'px)'
-
-      // update the posiion attributes
-      target.setAttribute('data-x', x)
-      target.setAttribute('data-y', y)
-    }
-
-    // this function is used later in the resizing and gesture demos
-    window.dragMoveListener = dragMoveListener
-
+    import {startMonaco} from "./lib/editor.js"
+    run(Babel, interact, startMonaco) 
   </script>
 
 </body>
