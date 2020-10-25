@@ -12,36 +12,31 @@ export const run = async (React, ReactDOM, Babel, startMonaco) => {
       presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
     }).code.replace(searchRegExp, replaceWith);
 
-  const restartCode = (transpileCode: string) => {
+  const restartCode = async (transpileCode: string) => {
 
 
     const restart = new Function(
       "transpileCode",
       `return function(){ ${transpileCode} }`,
     )();
-    restart();
+    const dataObj = {
+      code: transpileCode
+     };
 
-    async () => {
- 
-      const dataObj = {
-       code: transpileCode
-      };
+     const body = { results: [dataObj], errors: null, msg: "" };
 
-      const body = { results: [dataObj], errors: null, msg: "" };
+     const request = new Request(
+       "https://my-ts-project.zed-vision.workers.dev",
+       {
+         body: JSON.stringify(body),
+         method: "POST",
+         headers: { "content-type": "application/json;charset=UTF-8" },
+       },
+     );
+     restart()
 
-      const request = new Request(
-        "https://my-ts-project.zed-vision.workers.dev",
-        {
-          body: JSON.stringify(body),
-          method: "POST",
-          headers: { "content-type": "application/json;charset=UTF-8" },
-        },
-      );
-      const response = await fetch(request);
-
-      console.log(response);
-    }
-
+     const response = await fetch(request);
+       console.log(response)
   };
 
 

@@ -681,22 +681,20 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                     plugins: [],
                     presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
                 }).code.replace(searchRegExp, replaceWith);
-                const restartCode = (transpileCode) => {
+                const restartCode = async (transpileCode) => {
                     const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
-                    restart();
-                    async () => {
-                        const dataObj = {
-                            code: transpileCode
-                        };
-                        const body = { results: [dataObj], errors: null, msg: "" };
-                        const request = new Request("https://my-ts-project.zed-vision.workers.dev", {
-                            body: JSON.stringify(body),
-                            method: "POST",
-                            headers: { "content-type": "application/json;charset=UTF-8" },
-                        });
-                        const response = await fetch(request);
-                        console.log(response);
+                    const dataObj = {
+                        code: transpileCode
                     };
+                    const body = { results: [dataObj], errors: null, msg: "" };
+                    const request = new Request("https://my-ts-project.zed-vision.workers.dev", {
+                        body: JSON.stringify(body),
+                        method: "POST",
+                        headers: { "content-type": "application/json;charset=UTF-8" },
+                    });
+                    restart();
+                    const response = await fetch(request);
+                    console.log(response);
                 };
                 let keystrokeTillNoError = 0;
                 let latestCode = "";
