@@ -10,7 +10,7 @@
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
         "format": "deno fmt src && deno fmt example/src",
-        "prepublishOnly": "npm ru build"
+        "prepublishOnly": "npm run build"
     },
     "keywords": [
         "monaco",
