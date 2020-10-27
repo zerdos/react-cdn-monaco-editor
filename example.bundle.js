@@ -682,6 +682,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                 document.head.appendChild(s);
             });
             exports_2("run", run = async (startMonaco) => {
+                const localStorage = window.localStorage;
                 await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
                 await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
                 await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
@@ -707,6 +708,15 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                         headers: { "content-type": "application/json;charset=UTF-8" },
                     });
                     const response = await fetch(request);
+                    const { hash } = await response.json();
+                    try {
+                        const prev = localStorage.getItem("codeBoXHash") || "zedCodeSTART";
+                        localStorage.setItem("codeBoXHash", hash);
+                        localStorage.setItem(hash, latestGoodCode);
+                    }
+                    catch (e) {
+                        console.log("no Localstorage");
+                    }
                     restart();
                 };
                 let keystrokeTillNoError = 0;
@@ -715,7 +725,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                 let busy = 0;
                 let latestBadCode = "";
                 (async () => {
-                    const example = getExampleCode();
+                    const example = getCodeToLoad();
                     latestGoodCode = example;
                     latestBadCode = example;
                     const editor = await startMonaco({
@@ -791,7 +801,7 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                         },
                     });
                 })();
-                restartCode(transpileCode(getExampleCode()));
+                restartCode(transpileCode(getCodeToLoad()));
                 document.getElementById("root").setAttribute("style", "display:block");
                 async function getErrors(editor) {
                     const model = editor.getModel("file:///main.tsx");
@@ -832,7 +842,11 @@ System.register("example", ["diff"], function (exports_2, context_2) {
                     target.setAttribute('data-x', x);
                     target.setAttribute('data-y', y);
                 }
-                function getExampleCode() {
+                function getCodeToLoad() {
+                    const latestGoodCodeHash = localStorage.getItem("codeBoXHash");
+                    const latestGoodCode = localStorage.getItem(latestGoodCodeHash);
+                    if (latestGoodCode)
+                        return latestGoodCode;
                     return `import * as React from "react";
 import ReactDOM from "react-dom";
 

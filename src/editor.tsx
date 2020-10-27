@@ -30,6 +30,10 @@ export async function startMonaco(
         "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js",
       );
 
+      await loadScript(
+        "https://unpkg.com/prettier@2.1.2/standalone.js",
+      );
+
       // @ts-ignore
       require.config({ paths: { "vs": vsPath } });
 
@@ -185,7 +189,21 @@ export async function startMonaco(
           }
         }
 
+        editor.onDidBlurEditorText(() => {
+          //@ts-ignore
+          console.log(window["prettier"] && prettier);
+          //    const code = editor.getValue();
+          //   editor.setValue(window["prettier"].format(code));
+        });
+
+        (async () => {
+          await loadScript(
+            "https://unpkg.com/prettier@2.1.2/parser-graphql.js",
+          );
+        })();
+
         editor.onDidChangeModelContent((_event) => onChange(editor.getValue()));
+
         resolve(editor);
       });
     },
