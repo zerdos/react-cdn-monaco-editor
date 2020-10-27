@@ -30,10 +30,6 @@ export async function startMonaco(
         "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js",
       );
 
-      await loadScript(
-        "https://unpkg.com/prettier@2.1.2/standalone.js",
-      );
-
       // @ts-ignore
       require.config({ paths: { "vs": vsPath } });
 
@@ -107,14 +103,29 @@ export async function startMonaco(
         // ]);
 
         if (monacoLang !== "html") {
+          const importHelper = {
+            react: {
+              url: "https://unpkg.com/@types/react@latest/index.d.ts",
+              depends: ["global", "csstype", "react-dom", "prop-types"],
+            },
+            global: {
+              url: "https://unpkg.com/@types/react@latest/global.d.ts",
+            },
+            "prop-types": {
+              url: "https://unpkg.com/@types/prop-types@latest/index.d.ts",
+            },
+            "react-dom": {
+              url: "https://unpkg.com/@types/react-dom@latest/index.d.ts",
+            },
+            csstype: { url: "https://unpkg.com/csstype@latest/index.d.ts" },
+          };
+          
           (async () => {
             (async () => {
-              const reactDts = await fetch(
-                "https://unpkg.com/@types/react@latest/index.d.ts",
-              );
-
-              monaco.languages.typescript.typescriptDefaults.addExtraLib(
-                await reactDts.text(),
+              return monaco.languages.typescript.typescriptDefaults.addExtraLib(
+                await (await fetch(
+                  "https://unpkg.com/@types/react@latest/index.d.ts",
+                )).text(),
                 "file:///node_modules/@types/react/index.d.ts",
               );
             })();
@@ -158,40 +169,49 @@ export async function startMonaco(
               );
             })();
 
+            if (monacoLang === "typescript") {
+              monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+                {
+                  target: monaco.languages.typescript.ScriptTarget.ESNext,
+                  allowNonTsExtensions: true,
+                  allowUmdGlobalAccess: true,
+                  strict: true,
+                  allowJs: true,
+                  noEmitOnError: true,
+                  allowSyntheticDefaultImports: true,
+                  moduleResolution:
+                    monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+                  module: monaco.languages.typescript.ModuleKind.CommonJS,
+                  noEmit: true,
+                  typeRoots: ["node_modules/@types"],
+                  jsx: monaco.languages.typescript.JsxEmit.React,
+                  jsxFactory: "React.createElement",
+                  jsxFragmentFactory: "React.Fragment",
+                  esModuleInterop: true,
+                },
+              );
+
+              monaco.languages.typescript.javascriptDefaults
+                .setDiagnosticsOptions({
+                  noSuggestionDiagnostics: false,
+                  noSemanticValidation: false,
+                  noSyntaxValidation: false,
+                });
+            }
             return "done";
           })();
 
-          if (monacoLang === "typescript") {
-            monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-              target: monaco.languages.typescript.ScriptTarget.ESNext,
-              allowNonTsExtensions: true,
-              allowUmdGlobalAccess: true,
-              strict: true,
-              allowJs: true,
-              noEmitOnError: true,
-              allowSyntheticDefaultImports: true,
-              moduleResolution:
-                monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-              module: monaco.languages.typescript.ModuleKind.CommonJS,
-              noEmit: true,
-              typeRoots: ["node_modules/@types"],
-              jsx: monaco.languages.typescript.JsxEmit.React,
-              jsxFactory: "React.createElement",
-              jsxFragmentFactory: "React.Fragment",
-              esModuleInterop: true,
+          monaco.languages.typescript.javascriptDefaults
+            .setDiagnosticsOptions({
+              noSuggestionDiagnostics: true,
+              noSemanticValidation: true,
+              noSyntaxValidation: true,
             });
-
-            monaco.languages.typescript.javascriptDefaults
-              .setDiagnosticsOptions({
-                noSemanticValidation: false,
-                noSyntaxValidation: false,
-              });
-          }
         }
 
         editor.onDidBlurEditorText(() => {
           //@ts-ignore
-          console.log(window["prettier"] && prettier);
+          //  console.log(window["prettier"] && prettier);
           //    const code = editor.getValue();
           //   editor.setValue(window["prettier"].format(code));
         });

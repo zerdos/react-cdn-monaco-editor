@@ -5,6 +5,8 @@ node_modules
 .idea/
 .ipr
 .iws
+.lib
+*.js
 *~
 ~*
 *.diff

@@ -1,4 +1,7 @@
 {
+    "files.autoSave": "onFocusChange",
+    "deno.enable": true,
+
     "cSpell.words": [
         "Overtype",
         "browserslist",
@@ -14,5 +17,5 @@
     "editor.suggest.insertMode": "insert",
     "editor.suggestFontSize": 0,
     "editor.suggestLineHeight": 0,
-    "editor.suggestOnTriggerCharacters": false
+    "editor.suggestOnTriggerCharacters": false,
 }
