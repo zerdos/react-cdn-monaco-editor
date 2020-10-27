@@ -5,10 +5,7 @@
     "main": "index.js",
     "sideEffects": false,
     "scripts": {
-        "build": "yarn format && tsc && yarn sed:ih && yarn sed:ed && cp -f lib/* ./",
-        "sed:ih": "sed -i 's/importHelper\"/importHelper.js\"/' ./lib/editor.js",
-        "sed:ed": "sed -i 's/editor\"/editor.js\"/' ./lib/index.js",
-        "build:example": "deno bundle example.ts > example.bundle.js",
+        "build": "yarn format && tsc && cp -f lib/editor.d.ts ./index.d.ts",
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && file_server . & node scripts/screenshots.js",
