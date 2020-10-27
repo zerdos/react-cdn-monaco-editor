@@ -11,6 +11,9 @@ lib
 *~
 ~*
 *.diff
+*.js
+*.map
+lib
 *.patch
 *.bak
 .DS_Store

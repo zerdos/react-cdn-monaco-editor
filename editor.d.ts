@@ -1,5 +1,7 @@
-export declare function startMonaco({ onChange, code, language }: {
-    onChange: any;
-    code: any;
-    language: any;
-}): Promise<any>;
+interface StartMonaco {
+    onChange: (code: string) => void;
+    code: string;
+    language: "html" | "javascript" | "typescript";
+}
+export declare const startMonaco: ({ onChange, code, language }: StartMonaco) => Promise<any>;
+export {};

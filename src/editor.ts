@@ -1,12 +1,11 @@
-
 import type monaco from "monaco-editor";
-import { importHelper } from "./importHelper.ts";
+import { importHelper } from "./importHelper";
 
 type monacoType = typeof monaco;
 
 interface StartMonaco {
   onChange: (code: string) => void;
-  code: string,
+  code: string;
   language: "html" | "javascript" | "typescript";
 }
 export const startMonaco = async (
@@ -41,7 +40,7 @@ export const startMonaco = async (
       require.config({ paths: { "vs": vsPath } });
 
       // @ts-ignore
-    
+
       // @ts-ignore
       require(["vs/editor/editor.main"], async function () {
         const monaco = (window as unknown as { monaco: monacoType }).monaco;

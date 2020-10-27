@@ -1,11 +1,11 @@
 {
     "name": "react-cdn-monaco-editor",
-    "version": "2.3.4",
+    "version": "2.4.0",
     "description": "Monaco Editor for React",
     "main": "index.js",
     "sideEffects": false,
     "scripts": {
-        "build": "yarn format && tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && cp -f lib/* ./",
+        "build": "yarn format && tsc && sed -i 's/VERSION/'$npm_package_version'/' ./lib/index.js && sed -i 's/importHelper\"/importHelper.js\"/' ./lib/editor.js && cp -f lib/* ./",
         "build:example": "deno bundle example.ts > example.bundle.js",
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "clean": "rm -rf lib screenshot*",
@@ -13,8 +13,7 @@
         "format": "deno fmt src && deno fmt example/src",
         "prepublishOnly": "npm run build && cd example && yarn && cp -r ../lib node_modules/react-cdn-monaco-editor/ && yarn build && cd .. && yarn screenshots && git add .&& git commit -m prepublish-$npm_package_version && git push",
         "afterPublish": "rm ./*.js"
-    }
-    ,
+    },
     "keywords": [
         "monaco",
         "editor",

@@ -1,4 +1,4 @@
-import type { startMonaco as StartMonaco } from "./editor.ts";
+import type { startMonaco as StartMonaco } from "./editor";
 
 export const startMonaco: typeof StartMonaco = async (
   { onChange, language, code },
