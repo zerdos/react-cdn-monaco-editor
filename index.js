@@ -7,7 +7,7 @@ let version;
         try{
         const sp= await fetch("./package.json");
         const data = await sp.json();
-        version = data.version
+        version = data.version;
         } catch(e) {
             version="latest"
         }
