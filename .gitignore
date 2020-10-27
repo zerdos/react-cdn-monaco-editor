@@ -8,8 +8,6 @@ node_modules
 *~
 ~*
 *.diff
-*.map
-lib
 *.patch
 *.bak
 .DS_Store

@@ -1,0 +1,1 @@
+export { startMonaco } from "./editor";
