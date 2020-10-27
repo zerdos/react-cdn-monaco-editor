@@ -1,23 +1,21 @@
 {
   "files": {
-    "main.css": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css",
-    "main.js": "/react-cdn-monaco-editor/example/build/static/js/main.72dfe24c.chunk.js",
-    "main.js.map": "/react-cdn-monaco-editor/example/build/static/js/main.72dfe24c.chunk.js.map",
-    "runtime-main.js": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js",
-    "runtime-main.js.map": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.6c9051da.js.map",
-    "static/js/2.be1b3bc4.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.be1b3bc4.chunk.js",
-    "static/js/2.be1b3bc4.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.be1b3bc4.chunk.js.map",
+    "main.css": "/react-cdn-monaco-editor/example/build/static/css/main.58f4e44e.chunk.css",
+    "main.js": "/react-cdn-monaco-editor/example/build/static/js/main.c01a3692.chunk.js",
+    "main.js.map": "/react-cdn-monaco-editor/example/build/static/js/main.c01a3692.chunk.js.map",
+    "runtime-main.js": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.c1202fd2.js",
+    "runtime-main.js.map": "/react-cdn-monaco-editor/example/build/static/js/runtime-main.c1202fd2.js.map",
+    "static/js/2.cdfb8d70.chunk.js": "/react-cdn-monaco-editor/example/build/static/js/2.cdfb8d70.chunk.js",
+    "static/js/2.cdfb8d70.chunk.js.map": "/react-cdn-monaco-editor/example/build/static/js/2.cdfb8d70.chunk.js.map",
     "index.html": "/react-cdn-monaco-editor/example/build/index.html",
-    "precache-manifest.6f40a08b5f71d01899372989790dbf64.js": "/react-cdn-monaco-editor/example/build/precache-manifest.6f40a08b5f71d01899372989790dbf64.js",
-    "service-worker.js": "/react-cdn-monaco-editor/example/build/service-worker.js",
-    "static/css/main.88fbda7c.chunk.css.map": "/react-cdn-monaco-editor/example/build/static/css/main.88fbda7c.chunk.css.map",
-    "static/js/2.be1b3bc4.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.be1b3bc4.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/react-cdn-monaco-editor/example/build/static/media/logo.5d5d9eef.svg"
+    "static/css/main.58f4e44e.chunk.css.map": "/react-cdn-monaco-editor/example/build/static/css/main.58f4e44e.chunk.css.map",
+    "static/js/2.cdfb8d70.chunk.js.LICENSE.txt": "/react-cdn-monaco-editor/example/build/static/js/2.cdfb8d70.chunk.js.LICENSE.txt",
+    "static/media/logo.103b5fa1.svg": "/react-cdn-monaco-editor/example/build/static/media/logo.103b5fa1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6c9051da.js",
-    "static/js/2.be1b3bc4.chunk.js",
-    "static/css/main.88fbda7c.chunk.css",
-    "static/js/main.72dfe24c.chunk.js"
+    "static/js/runtime-main.c1202fd2.js",
+    "static/js/2.cdfb8d70.chunk.js",
+    "static/css/main.58f4e44e.chunk.css",
+    "static/js/main.c01a3692.chunk.js"
   ]
 }
