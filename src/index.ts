@@ -1,8 +1,8 @@
-import type { startMonaco as StartMonaco } from "./editor";
+import type { startMonaco as StartMonaco } from "./editor.ts";
 
-export async function startMonaco(
-  { onChange, code, language },
-) {
+export const startMonaco: typeof StartMonaco = async (
+  { onChange, language, code },
+) => {
   const remoteFile = await fetch(
     `https://unpkg.com/react-cdn-monaco-editor@VERSION/editor.js`,
   );
@@ -16,4 +16,4 @@ export async function startMonaco(
   ${replaced}`)();
 
   return stM({ code, onChange, language });
-}
+};
